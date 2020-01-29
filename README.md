@@ -6,10 +6,12 @@ Kevin To - 862066820
 Yohan Kim - 
 
 # Introduction
-R'Shell is a UNIX-based user interface that can handle composite lines using connectors like &&, ||, and ;. At the end of assignment, R'Shell should be able to handle composite patterns of the process and utilize them to run linux commands.
+R'Shell is a UNIX-based user interface that can handle composite lines using connectors like &&, ||, and ;. At the end of assignment, R'Shell should be able to handle composite patterns of the process and utilize them to run linux commands. To start however, we are first building our program through a composite design pattern. The inputs are taken from the user and split and divided up into the classes, whether it be a connector, executable, etc. This functionality will be done through our parser class, which will sort these into the several classes that we have. The composite design pattern that we decided to follow is shown through our implementation of a Base class, which will act as a super class for all tokens - meaning all other subclasses will inherit from the Base class. by implementing our program in a composite pattern, we hope that implementing and adding new features in the future will be efficient and simple.  
 
 
 # Diagram
+
+![Diagram for Assignment #1](https://github.com/cs100/assignment-cout-ideas/blob/master/images/R'Shell%20Assignment%201.png?raw=true)
 
 
 
