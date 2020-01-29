@@ -1,32 +1,49 @@
 # CS 100 Programming Project
 
-##Introduction
+# Project Information
+Winter Quarter 2020
+Kevin To - 862066820
+Yohan Kim - 
+
+# Introduction
 R'Shell is a UNIX-based user interface that can handle composite lines using connectors like &&, ||, and ;. At the end of assignment, R'Shell should be able to handle composite patterns of the process and utilize them to run linux commands.
 
 
-##Diagram 
+# Diagram
 
 
 
-##Class Descriptions
 
-__Parser__
+
+# Class Descriptions
+
+__Parser__:
 This class will translate user's composite inputs into executable commands for the Linux system. Essentially it means that it will branch down into commands, arguments, and connectors, and store them as a tree. After that, it will run the execute function from the root, followed by the left then right.
 
-__Base__
+__Base__:
 This class is going to be a super class for all tokens. It will set up getters and setters for left and right processes, and provide a general execute function that handles all Linux commands (i.e. cd, ls, etc.)
 
-__Test__
+__Test__:
+This class will handle all the test classes that we make. This class will input general test cases, edge cases, and possibly incorrect cases so that we can test the functionality of our code.
 
-__Executable__
+__Executable__:
+This class handles all the executables. That means it will handle all Linux commands such as cd, ls, etc.
 
-__Token(Connectors)__
+__Token(Connectors)__:
 Token class will represent the order of the commands that a user inputs. In execution, it means that each token class will have an order of operation and also be dependent on the previous process.
 
+  *__And__: We would require a waitPid() command because concerning the connector &&, the left process or child, must be completed before the right child is run. Similar to an if then statement, if the left child process can be completed, then run the right child process. If the left child process can't be completed, don't run the right child process. 
+
+  *__Or__: The opposite logic of the andToken sub-class, the right process will only be prompted to run if the left process fails, as it only requires one process to be "true". Following the if then statement logic again, if the left child process can't be completed, attempt to run the right child process. 
+
+  *__Next__: This is a class that tells the program to move onto the next process that the vector contains. If the vector is at the end of the element, then it can wait for user to input another command or exit the shell program. 
+
+  *__Quit__: This class will be short; It will take in the user's exit command, and run exit(1) so that the while loop from the main function is exited, and end the program. 
 
 
+# Prototype/Research
 
-##Prototype/Research
+# Development and Testing Roadmap
 
-##Roadmap & Issues
+
 
