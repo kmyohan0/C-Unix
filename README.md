@@ -1,18 +1,15 @@
 # CS 100 Programming Project
-<<<<<<< HEAD
-This is Yohan's Part
-=======
 
-##Introduction
+## Introduction
 
 R'Shell is a UNIX-based user interface that can handle composite lines using connectors like &&, ||, and ;. At the end of assignment, R'Shell should be able to handle composite patterns of the process and utilize them to run linux commands.
 
 
-##Diagram 
+## Diagram 
 
 
 
-##Class Descriptions
+## Class Descriptions
 
 __Parser__
 
@@ -33,9 +30,9 @@ Token class will represent the order of the commands that a user inputs. In exec
 
 
 
-##Prototype/Research
+## Prototype/Research
 
-##Roadmap / Development
+## Roadmap / Development
 
 1. Design base class
 2. Create token classes (simple ones such as executable commands)
