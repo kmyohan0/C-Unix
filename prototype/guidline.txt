@@ -1,0 +1,11 @@
+execvp(), fork(), waitpid() all depends an the system integer called pid_t.
+     pid_t data type is a signed integer type which is capable of representing a process ID (GNU).
+
+    execvp() -  The exec() family of functions replaces the current process image
+       with a new process image.
+
+    waitpid() - The wait() and waitpid() functions shall obtain status information
+       pertaining to one of the caller's child processes.
+
+    fork() - fork() creates a new process by duplicating the calling process.  The
+       new process is referred to as the child process.
