@@ -1,12 +1,12 @@
 # CS 100 Programming Project
 
 # Project Information
-Winter Quarter 2020
-Kevin To - 862066820
-Yohan Kim - 
+Winter Quarter 2020<br/>
+Kevin To - 862066820<br/>
+Yohan Kim - 862073880
 
 # Introduction
-R'Shell is a UNIX-based user interface that can handle composite lines using connectors like &&, ||, and ;. At the end of assignment, R'Shell should be able to handle composite patterns of the process and utilize them to run linux commands. To start however, we are first building our program through a composite design pattern. The inputs are taken from the user and split and divided up into the classes, whether it be a connector, executable, etc. This functionality will be done through our parser class, which will sort these into the several classes that we have. The composite design pattern that we decided to follow is shown through our implementation of a Base class, which will act as a super class for all tokens - meaning all other subclasses will inherit from the Base class. by implementing our program in a composite pattern, we hope that implementing and adding new features in the future will be efficient and simple.  
+R'Shell is a UNIX-based command line user interface that can handle composite lines using connectors like &&, ||, and ;. At the end of assignment, R'Shell should be able to handle composite patterns of the process and utilize them to run linux commands. To start however, we are first building our program through a composite design pattern. The inputs are taken from the user and split and divided up into the classes, whether it be a connector, executable, etc. This functionality will be done through our parser class, which will sort these into the several classes that we have. The composite design pattern that we decided to follow is shown through our implementation of a Base class, which will act as a super class for all tokens - meaning all other subclasses will inherit from the Base class. by implementing our program in a composite pattern, we hope that implementing and adding new features in the future will be efficient and simple.  
 
 
 # Diagram
@@ -46,6 +46,23 @@ Token class will represent the order of the commands that a user inputs. In exec
 # Prototype/Research
 
 # Development and Testing Roadmap
+
+To get our program to full functionality with the greatest effiency possible, the tasks ordered below need to be completed. Note that this list is extremely relative at this moment, and is subject to changes in the future as we continue to build our classes and dive further into our development process for the program. This list will include the construction of classes, as well as testing them before they are commited to our master branch. Linked below with each task will be the associated issues in GitHub.
+
+## Designing our Base Class
+This class will be essential to the functionality of our program, and is a good choice as the first development task that we need to work on. Following a composite pattern, this class will serve as a super-class to all of our tokens and because of that is required to be constructed first. 
+
+https://github.com/cs100/assignment-cout-ideas/issues/5
+
+
+
+## Parser Class
+
+The functions of this class will be especially important in the functionality and operation of our program. This class is already being developed as a result of Assignmnent 1, and will need to be completed in Assignment 2. Because this function will be a main part and potentially the first class committed to master branch, unit testing is essential and potential changes for this class are to be anticipated. 
+
+
+
+
 
 
 
