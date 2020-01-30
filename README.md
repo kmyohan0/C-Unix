@@ -42,6 +42,19 @@ Token class will represent the order of the commands that a user inputs. In exec
 
 # Prototype/Research
 
+All prototype functions are in the prototype directory. For parsing method, we decided to use it like this: 
+
+First, parse user input into each words.
+Second, translate those words into tokens, and convert from infix to postfix.
+Third, create a tree based on the postfix words. 
+Fourth, run execute function from root, then left, and right.
+
+By this way, it will be an efficient (in terms of memory and run-time) method of handling this project. Other ways (We thought of using one vector with all executions in it), will be too complicated to create an specific behaviors and outcomes, especially when handling with connectors. 
+
+From coding prototypes of `execvp()`, `fork()`, and`waitpid()`, we was able to understand that all those codes follow each other. From my finding, we believe that we can use those functions only on our `execute()` function, and probably connector classes since those are dependent on previous processes.
+
+Also, we've tried using connectors in shell too. We found out that first command is the one that changes the behavior of second command. That means, if we are using `||` connector and first command is successful, then whether second command is valuable or not, it will not run it. 
+
 # Development and Testing Roadmap
 
 To get our program to full functionality with the greatest effiency possible, the tasks ordered below need to be completed. Note that this list is extremely relative at this moment, and is subject to changes in the future as we continue to build our classes and dive further into our development process for the program. This list will include the construction of classes, as well as testing them before they are commited to our master branch. Linked below with each task will be the associated issues in GitHub.
