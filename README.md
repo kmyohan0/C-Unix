@@ -17,19 +17,18 @@ R'Shell is a UNIX-based command line user interface that can handle composite li
 # Class Descriptions
 
 ## __Parser__:
-This class will translate user's composite inputs into executable commands for the Linux system. Essentially it means that it will branch down into commands, arguments, and connectors, and store them as a tree. After that, it will run the execute function from the root, followed by the left then right.
+This class will translate user's composite inputs into executable commands for the Linux system. Essentially it means that it will branch down into commands, arguments, and connectors, and store them as a tree. After that, it will run the execute function from the root, followed by the left then right. This will not be a class that is a sub-class of Base class like most of the token classes, instead it will utilize our token classes so that it can parse the user’s commands into the right “tokens”. Since parser class will handle most of the shell functions, it is really essential to build a coherent, flexible base class. 
+
 
 ## __Base__:
-This class is going to be a super class for all tokens. It will set up getters and setters for left and right processes, and provide a general execute function that handles all Linux commands (i.e. cd, ls, etc.)
+This class is going to be a super class for all of our following tokens classes. It will set up getters and setters for left and right processes, and provide a general execute function that handles all Linux commands (i.e. cd, ls, etc.). This base class is especially important because it follows the composite design pattern, and allows for future scaling. With new tokens that will surely be added in the future, it allows us to scale up really easily by inheriting from this Base class for all token classes that we will write.
 
 ## __Test__:
-This class will handle all the test classes that we make. This class will input general test cases, edge cases, and possibly incorrect cases so that we can test the functionality of our code.
+This class will handle all the test classes that we make. This will input a generic case, edge cases, and possibly incorrect cases so that we can actually figure out how the code is working or which part is not working. Testing class will use google test (Gtest), and thus it will be essential to know what specific outcome will be. So one possible idea is to have another person to actually use pure linux terminal, and code the desired code and set outcome as Gtest ”expected”. 
 
-## __Executable__:
-This class handles all the executables. That means it will handle all Linux commands such as cd, ls, etc.
 
 ## __Token(Connectors)__:
-Token class will represent the order of the commands that a user inputs. In execution, it means that each token class will have an order of operation and also be dependent on the previous process.
+Token class will represent the order of the commands that the user has inputted. That means, each token classes will have an order of operation and also be dependent by previous process. Since this class is derived from base class, it will have a specific `execute()` function for each token class. It will be important that when dealing with connector token classes, we need to make sure that we are using `virtual` function for base class so that when we execute the command from the root of the tree, it can come down to specific connector classes.
 
   * __And__: We would require a waitPid() command because concerning the connector &&, the left process or child, must be completed before the right child is run. Similar to an if then statement, if the left child process can be completed, then run the right child process. If the left child process can't be completed, don't run the right child process. 
 
@@ -57,10 +56,10 @@ Also, we've tried using connectors in shell too. We found out that first command
 
 # Development and Testing Roadmap
 
-To get our program to full functionality with the greatest effiency possible, the tasks ordered below need to be completed. Note that this list is extremely relative at this moment, and is subject to changes in the future as we continue to build our classes and dive further into our development process for the program. This list will include the construction of classes, as well as testing them before they are commited to our master branch. Linked below with each task will be the associated issues in GitHub.
+To get our program to full functionality with the greatest effiency possible, the tasks ordered below need to be completed. Note that this list is extremely relative at this moment, and is subject to changes in the future as we continue to build our classes and dive further into our development process for the program. This list will include the construction of classes, as well as testing them before they are commited to our master branch. Linked below with each task will be the associated issues in GitHub. We will generally follow the relative order of our h2 headers listed below throughout our development for Assignment 2.
 
 ## Designing our Base Class
-This class will be essential to the functionality of our program, and is a good choice as the first development task that we need to work on. Following a composite pattern, this class will serve as a super-class to all of our tokens and because of that is required to be constructed first. 
+This class will be essential to the functionality of our program, and is a good choice as the first development task that we need to work on. Following a composite pattern, this class will serve as a super-class to all of our tokens and because of that is required to be constructed first. Integration testing this class will be important as it will serve as the super-class for several token classes now and in the future.
 
 * Creating Base class
 https://github.com/cs100/assignment-cout-ideas/issues/5
@@ -68,30 +67,43 @@ https://github.com/cs100/assignment-cout-ideas/issues/5
 * Integration Testing for Base class
 https://github.com/cs100/assignment-cout-ideas/issues/9
 
+## Creating our Token Classes
+
+These token classes will be the sub-classes inheriting from the Base class and will focus on executable commands. When one token class is completed, it is important to acknowledge all possible cases that are related with each token. These token classes include our connectors, such as &&, ;, ||. Building out our token classes as subclasses is especially important to the composite pattern, as an inheritance from the Base class will make our program easily scaleable regarding the creation of new token classes. As this is a cumulative project, it's crucial that we can build on existing code without compromising it, and our token classes are an example of that. 
+
+* Creating andToken class
+https://github.com/cs100/assignment-cout-ideas/issues/12
+
+* Integration Testing for andToken class
+https://github.com/cs100/assignment-cout-ideas/issues/13
+
+* Creating orToken class
+https://github.com/cs100/assignment-cout-ideas/issues/10
+
+* Integration Testing for orToken class
+https://github.com/cs100/assignment-cout-ideas/issues/14
+
+* Creating quitToken class
+https://github.com/cs100/assignment-cout-ideas/issues/11
+
+* Integration Testing for quitToken class
+https://github.com/cs100/assignment-cout-ideas/issues/15
 
 
 ## Parser Class
 
-The functions of this class will be especially important in the functionality and operation of our program. This class is already being developed as a result of Assignmnent 1, and will need to be completed in Assignment 2. Because this function will be a main part and potentially the first class committed to master branch, unit testing is essential and potential changes for this class are to be anticipated. 
+The functions of this class will be especially important in the functionality and operation of our program. This class is already being developed as a result of Assignmnent 1, and will need to be completed in Assignment 2. Because this function will be a main part and potentially the first class committed to master branch, unit testing is essential and potential changes for this class are to be anticipated. Unit Tests will also be important to make sure that our Parser class is functioning correctly.
 
-* Creating our Parser class 
+* Creating Parser class 
 https://github.com/cs100/assignment-cout-ideas/issues/4
 
-## Creating our Token Classes
+* Unit Testing Parser class
+https://github.com/cs100/assignment-cout-ideas/issues/7
 
-These token classes will be the sub-classes inheriting from the Base class and will focus on executable commands. When one token class is completed, it is important to acknowledge all possible cases that are related with each token. 
+*Integration Testing Parser class
+https://github.com/cs100/assignment-cout-ideas/issues/8
 
-* Creating token classes
 
-* Unit testing token classes 
-
-* Integration Testing for our token classes 
-
-## Create argumentList Class
-Note: Could be changed, related to our executables class.
-
-## Create Connector Class 
-Note: could be changed, could just be tokens.
 
 
 
