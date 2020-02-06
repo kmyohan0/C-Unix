@@ -4,31 +4,31 @@
 
 #include <cstring>
 #include <iostream>
-#include "parser.h"
+#include "parser_prototype.h"
 
-parser::parser() {
+parser_prototype::parser_prototype() {
     userInput = "";
 }
 
-void parser::addCommand(string input) {
+void parser_prototype::addCommand(string input) {
     userInput = input;
 }
 // We need to convert our commands into postfix.
 // The reason is because humans are comfortable
 // understanding postfix equations, but computer is not.
 // We can use postfix method to easily store our base contents into the tree and run as infix order.
-void parser::convertIntoPostFix() {
+void parser_prototype::convertIntoPostFix() {
 
 }
 //We use tree to easily access our elements as well as use composite patterns easily.
 //i.e. root->execute();
 //     left->execute();
 //     right->execute();
-void parser::postFixtoTree() {
+void parser_prototype::postFixtoTree() {
 
 }
 
-void parser::parse() {
+void parser_prototype::parse() {
     int startPosition = 0;
     for (int i = 0; i < userInput.length(); i++) {
         if (userInput[i] == ' ' || i == userInput.length() -1) {

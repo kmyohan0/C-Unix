@@ -2,7 +2,7 @@
 // Created by Yohan on 1/29/2020.
 //
 #include <iostream>
-#include "parser.h"
+#include "parser_prototype.h"
 
 using namespace std;
 
@@ -11,7 +11,7 @@ int main() {
     string test2 = "ls -a";
     string test3 = "cd ..";
     string test4 = "cd this; ls -a";
-    parser parser;
+    parser_prototype parser;
     parser.addCommand(test1);
     cout << "testing test1" << endl;
     parser.parse();

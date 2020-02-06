@@ -7,18 +7,18 @@
 
 #include <string>
 #include <vector>
-//Need to include base and other components, since parser will execute too
+//Need to include base and other components, since parser_prototype will execute too
 
 using namespace std;
 
-class parser {
+class parser_prototype {
 private:
     string userInput;
     vector<string> elements;
     void convertIntoPostFix();
     void postFixtoTree();
 public:
-    parser();
+    parser_prototype();
     void addCommand(string input);
     void parse();
 };
