@@ -12,8 +12,6 @@ using namespace std;
 class base {
 private:
     string command;
-    base* left;
-    base* right;
 public:
     base() {};
     virtual void execute() = 0;
