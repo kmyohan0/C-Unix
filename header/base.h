@@ -14,7 +14,7 @@ private:
     string command;
 public:
     base() {};
-    virtual void execute() = 0;
+    virtual bool execute() = 0;
 };
 
 #endif //ASSIGNMENT_COUT_IDEAS_BASE_H
