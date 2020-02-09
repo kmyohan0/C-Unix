@@ -16,7 +16,7 @@ class andToken : public base{
 		void setRight(base* right);
 		bool execute();
 
-}
+};
 
 
 
