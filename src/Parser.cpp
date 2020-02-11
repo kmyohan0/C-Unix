@@ -14,46 +14,35 @@ void Parser::parseCommand(string input) {
 
 void Parser::parseString(vector<string> &tokenList) {
 /*
+ * Things that I need to think about
+ *
+ * 0. use string iteration to take out anything that follows with # (comment)
  * 1. use Boost separate library to separate space, comma, etc.
  * 2. use Boost tokenizer library to push back each element that was trimmed down.
  * 3. Change compound string into tokens.*/
-    for (int i = 0; i < tokenList.size(); i++) {
-        string token = tokenList.at(i);
-        int temp = i;
-        boost::char_separator<char> str_separator("","\"\'");
-        boost::tokenizer<boost::char_separator<char> > string_token(token, str_separator);
-        boost::tokenizer<boost::char_separator<char> >::iterator itr;
-        for (itr = string_token.begin(); itr != string_token.end(); itr++) {
-            tokenList.push_back(*itr);
-            temp++;
-        }
-        tokenList.erase(tokenList.begin() + i);
-        i = temp;
-    }
+        string compoundToken = tokenList.at(0);
+        boost::char_separator<char> separator(" ", ";");
+        boost::tokenizer<boost::char_separator<char>> tokenizer(compoundToken, separator);
+        boost::tokenizer<boost::char_separator<char>>::iterator tokenizer_itr;
+        for (tokenizer_itr = tokenizer.begin(); tokenizer_itr != tokenizer.end(); tokenizer_itr++) {
+            string token = *tokenizer_itr;
+            tokenList.insert(tokenList.begin()+j, token);
+            if (token[0] == '#') { // if we find comment, then iterate through remaining iterators so that we ignore characters that
+                                   // comes after the comment
+                boost::tokenizer< boost::char_separator<char> >::iterator temp = tokenizer_itr;
+                ++temp;
+                while(temp != tokenizer.end())
+                {
+                    ++temp;
+                    ++tokenizer_itr;
+                }
 
-    for (int i = 0; i < tokenList.size(); i++) {
-        string token = tokenList.at(i);
-        if (token == "\"" || token == "\'") {
-            i++;
-            if (i != tokenList.size() && tokenList.at(i).compare(token) != 0) {
-                string origin = tokenList.at(i);
-                int j = i;
-                j++;
-                for (int j; j < tokenList.size() && tokenList.at(j).compare(token) != 0; j++) {
-                    origin += tokenList.at(j);
-                    tokenList.erase(tokenList.begin() + j);
-                    j = i;
-                }
-                if (tokenList.begin() + j == tokenList.end()) {
-                    tokenList.push_back(token);
-                }
-                tokenList.at(i) = origin;
-                i++;
-            }
-            else if (tokenList.begin() + i == tokenList.end()) {
-                i--;
+                tokenList.shrink_to_fit();
             }
         }
+        int j = i;
+        i--;
+        tokenList.erase(tokenList.begin() + j);
     }
 }
 
@@ -61,7 +50,6 @@ vector<vector<string>> Parser::toPostFix(vector<string> &tokenList) {
     vector<string> string_entry;
     stack<string> lists;
     vector<vector<string> > postFix;
-
     for (int i = 0; i < tokenList.size(); i++) {
         string token = tokenList.at(i);
         //for every command, check whether they are composite (and, or, next) or leaf (executable commands)
@@ -131,7 +119,3 @@ base *Parser::postToTree(vector<vector<string>> tokenList) {
     }
     return command_stack.back();
 }
-
-
-
-
