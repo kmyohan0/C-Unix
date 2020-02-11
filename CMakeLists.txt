@@ -1,26 +1,29 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8.4)
 
-project(RShell)
+ADD_SUBDIRECTORY(googletest)
 
 set(CMAKE_CXX_STANDARD 14)
+
+project(RShell)
 
 set(Boost_USE_STATIC_LIBS OFF)
 set(Boost_USE_MULTITHREADED ON)
 set(Boost_USE_STATIC_RUNTIME OFF)
-find_package(Boost 1.40 REQUIRED COMPONENTS filesystem)
-message(STATUS "Boost version: ${Boost_VERSION}")
+find_package(Boost 1.41.0 COMPONENTS filesystem regex)
 
-# This is needed if your Boost version is newer than your CMake version
-# or if you have an old version of CMake (<3.5)
-if(NOT TARGET Boost::filesystem)
-    add_library(Boost::filesystem IMPORTED INTERFACE)
-    set_property(TARGET Boost::filesystem PROPERTY
-            INTERFACE_INCLUDE_DIRECTORIES ${Boost_INCLUDE_DIR})
-    set_property(TARGET Boost::filesystem PROPERTY
-            INTERFACE_LINK_LIBRARIES ${Boost_LIBRARIES})
+if(Boost_FOUND)
+    include_directories(${Boost_INCLUDE_DIRS})
+    add_executable(main src/main.cpp src/Parser.cpp)
+    target_link_libraries(main ${Boost_LIBRARIES})
 endif()
 
-target_link_libraries(MyExeOrLibrary PUBLIC Boost::filesystem)
+add_executable(
+        parser_unit_test
+        unit_tests/parser_test.cpp
+)
+
+#TARGET_LINK_LIBRARIES(parser_unit_test gtest)
+#TARGET_COMPILE_DEFINITIONS(parser_unit_test PRIVATE gtest_disable_pthreads=ON)
 
 add_executable(
         test
