@@ -18,7 +18,7 @@ void andToken::setRight(base* right)
 	this->right = right;
 }
 
-bool execute()
+bool andToken::execute()
 {	
 	if (left != NULL)
 	{

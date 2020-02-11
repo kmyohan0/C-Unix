@@ -24,4 +24,4 @@ class andToken : public base{
 
 
 
-#endif __ANDTOKEN_H__
+#endif //__ANDTOKEN_H__

@@ -18,7 +18,7 @@ void orToken::setRight(base* right)
 	this->right = right;
 }
 
-bool execute()
+bool orToken::execute()
 {
 	if (left != NULL && right != NULL)
 	{

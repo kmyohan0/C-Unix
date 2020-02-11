@@ -14,4 +14,4 @@ class orToken : public base {
 		void setRight(base* right);
 		bool execute();
 };
-#endif __ORTOKEN_H__
+#endif //__ORTOKEN_H__
