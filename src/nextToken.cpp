@@ -1,4 +1,4 @@
-#include "..header/nextToken.h"
+#include "../header/nextToken.h"
 #include <string>
 
 nextToken::nextToken()
@@ -34,12 +34,4 @@ bool nextToken::execute()
 	}
 	return false;
 }
-		
 
-
-
-
-
-
-		
-}

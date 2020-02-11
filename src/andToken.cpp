@@ -1,5 +1,5 @@
 
-#include "..header/andToken.h"
+#include "../header/andToken.h"
 #include <string>
 
 andToken::andToken()

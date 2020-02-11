@@ -2,6 +2,8 @@
 #ifndef __ORTOKEN_H__
 #define __ORTOKEN_H__
 
+#include "../header/base.h"
+
 class orToken : public base {
 	private:
 		string command;

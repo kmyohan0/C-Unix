@@ -23,6 +23,13 @@ add_executable(
         src/Parser.cpp
 )
 
+ADD_EXECUTABLE(integration_testing
+        integration_tests/integration_tokens_test src/andToken.cpp src/nextToken.cpp src/orToken.cpp src/quitToken.cpp header/testToken.h
+        )
+
+TARGET_LINK_LIBRARIES(integration_testing gtest)
+TARGET_COMPILE_DEFINITIONS(integration_testing PRIVATE gtest_disable_pthreads=ON)
+
 #TARGET_LINK_LIBRARIES(parser_unit_test gtest)
 #TARGET_COMPILE_DEFINITIONS(parser_unit_test PRIVATE gtest_disable_pthreads=ON)
 

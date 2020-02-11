@@ -11,7 +11,7 @@ class andToken : public base{
 		base* left;
 		base* right;
 	public:
-		AndToken();
+		andToken();
 		void setLeft(base* left);
 		void setRight(base* right);
 		bool execute();
