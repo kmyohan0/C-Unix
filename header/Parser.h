@@ -13,18 +13,18 @@
 #include <list>
 #include <iterator>
 #include <sstream>
-//Need to figure out how to install boost
-//#include <boost/tokenizer.hpp>
+#include <stack>
+#include <boost/tokenizer.hpp>
 #include "../header/base.h"
 #include "base.h"
 
 using namespace std;
 
 class Parser {
-private:
+public:
     vector<string> elements;
     void parseString(vector<string>& tokenList);
-    vector<vector<string>> infixToPostFix(vector<string>& tokenList);
+    vector<vector<string>> toPostFix(vector<string>& tokenList);
     base* postToTree(vector<vector<string>> tokenList);
 public:
     void parseCommand(string input);
