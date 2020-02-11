@@ -20,6 +20,7 @@ endif()
 add_executable(
         parser_unit_test
         unit_tests/parser_test.cpp
+        src/Parser.cpp
 )
 
 #TARGET_LINK_LIBRARIES(parser_unit_test gtest)
