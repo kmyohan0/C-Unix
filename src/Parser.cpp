@@ -20,31 +20,32 @@ void Parser::parseString(vector<string> &tokenList) {
  * 1. use Boost separate library to separate space, comma, etc.
  * 2. use Boost tokenizer library to push back each element that was trimmed down.
  * 3. Change compound string into tokens.*/
-        string compoundToken = tokenList.at(0);
-        boost::char_separator<char> separator(" ", ";");
-        boost::tokenizer<boost::char_separator<char>> tokenizer(compoundToken, separator);
-        boost::tokenizer<boost::char_separator<char>>::iterator tokenizer_itr;
-        for (tokenizer_itr = tokenizer.begin(); tokenizer_itr != tokenizer.end(); tokenizer_itr++) {
-            string token = *tokenizer_itr;
-            tokenList.insert(tokenList.begin()+j, token);
-            if (token[0] == '#') { // if we find comment, then iterate through remaining iterators so that we ignore characters that
-                                   // comes after the comment
-                boost::tokenizer< boost::char_separator<char> >::iterator temp = tokenizer_itr;
+    int i = 0;
+    string compoundToken = tokenList.at(0);
+    boost::char_separator<char> separator(" ", ";");
+    boost::tokenizer<boost::char_separator<char>> tokenizer(compoundToken, separator);
+    boost::tokenizer<boost::char_separator<char>>::iterator tokenizer_itr;
+    for (tokenizer_itr = tokenizer.begin(); tokenizer_itr != tokenizer.end(); tokenizer_itr++) {
+        string token = *tokenizer_itr;
+        tokenList.insert(tokenList.begin(), token);
+        if (token[0] == '#') { // if we find comment, then iterate through remaining iterators so that we ignore characters that
+            // comes after the comment
+            boost::tokenizer< boost::char_separator<char> >::iterator temp = tokenizer_itr;
+            ++temp;
+            while(temp != tokenizer.end())
+            {
                 ++temp;
-                while(temp != tokenizer.end())
-                {
-                    ++temp;
-                    ++tokenizer_itr;
-                }
-
-                tokenList.shrink_to_fit();
+                ++tokenizer_itr;
             }
+
+            tokenList.shrink_to_fit();
         }
-        int j = i;
-        i--;
-        tokenList.erase(tokenList.begin() + j);
     }
+    int j = i;
+    i--;
+    tokenList.erase(tokenList.begin() + j);
 }
+
 
 vector<vector<string>> Parser::toPostFix(vector<string> &tokenList) {
     vector<string> string_entry;
