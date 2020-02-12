@@ -9,7 +9,7 @@ void Parser::parseCommand(string input) {
     parseString(tokenList);
     vector<vector<string>>postList = toPostFix(tokenList);
     base* root = postToTree(postList);
-    cout << "Working!" << endl;
+    //cout << "Workgin" << endl;
     root->execute();
 }
 
@@ -135,10 +135,17 @@ base *Parser::postToTree(vector<vector<string>> tokenList) {
             //need to add:
             //Executable executable = new executable(temp);
             //command_stack.push_back(executable);
+//            int size = temp.size() + 1;
+//            for (int i = 0; i < size -1; i++) {
+//                string string_temp = temp.at(i);
+//                strcpy(argv[i], string_temp.c_str());
+//            }
+//            argv[size-1] = NULL;
             int size = temp.size() + 1;
-            char *argv[size];
+            char*argv[size];
             for (int i = 0; i < size -1; i++) {
-                strcpy(argv[i], temp.at(i).c_str());
+                string str_temp =  temp.at(i);
+                argv[i] = const_cast<char *>(str_temp.c_str());
             }
             argv[size-1] = NULL;
             Executable* executable = new Executable(argv);
