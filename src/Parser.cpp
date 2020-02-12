@@ -9,13 +9,13 @@ void Parser::parseCommand(string input) {
     parseString(tokenList);
     vector<vector<string>>postList = toPostFix(tokenList);
     base* root = postToTree(postList);
+    cout << "Working!" << endl;
     root->execute();
 }
 
 void Parser::parseString(vector<string> &tokenList) {
 /*
  * Things that I need to think about
- *
  * 0. use string iteration to take out anything that follows with # (comment)
  * 1. use Boost separate library to separate space, comma, etc.
  * 2. use Boost tokenizer library to push back each element that was trimmed down.
@@ -27,7 +27,7 @@ void Parser::parseString(vector<string> &tokenList) {
     boost::tokenizer<boost::char_separator<char>>::iterator tokenizer_itr;
     for (tokenizer_itr = tokenizer.begin(); tokenizer_itr != tokenizer.end(); tokenizer_itr++) {
         string token = *tokenizer_itr;
-        tokenList.insert(tokenList.begin(), token);
+        tokenList.insert(tokenList.begin() + i, token);
         if (token[0] == '#') { // if we find comment, then iterate through remaining iterators so that we ignore characters that
             // comes after the comment
             boost::tokenizer< boost::char_separator<char> >::iterator temp = tokenizer_itr;
@@ -40,10 +40,9 @@ void Parser::parseString(vector<string> &tokenList) {
 
             tokenList.shrink_to_fit();
         }
+        i++;
     }
-    int j = i;
-    i--;
-    tokenList.erase(tokenList.begin() + j);
+    tokenList.erase(tokenList.end() - 1);
 }
 
 
@@ -53,23 +52,6 @@ vector<vector<string>> Parser::toPostFix(vector<string> &tokenList) {
     vector<vector<string> > postFix;
     for (int i = 0; i < tokenList.size(); i++) {
         string token = tokenList.at(i);
-        //for every command, check whether they are composite (and, or, next) or leaf (executable commands)
-        //if composite, then we need to set that as a branch and add one prev and one next command as leaf.
-        //by doing
-        /*
-         * the input character is an operand, add it to the postFix.
-            If the input character is an operator-
-                If stack is empty push it to the stack.
-                If it’s precedence value is greater than the precedence value of the character on top, push.
-                If it’s precedence value is lower then pop from stack and print while precedence of top char is more
-                than the precedence value of the input character.
-            Repeat steps until input expression is completely read.
-            Pop the remaining elements from stack and print them.
-
-            --Reference from GeeksforGeeks
-         */
-
-        //else, then just put it in stack
         if (token == ";" || token == "||" || token == "&&") {
             if (string_entry.size() > 0) {
                 postFix.push_back(string_entry);
@@ -110,12 +92,57 @@ base *Parser::postToTree(vector<vector<string>> tokenList) {
         vector<string> temp = tokenList.at(i);
         //now set every composite command into a tree
         if (temp.at(0) == "&&") {
+            andToken* token  = new andToken();
+            if(!command_stack.empty()) {
+                token->setRight(command_stack.back());
+                command_stack.pop_back();
+            }
+            if(!command_stack.empty()) {
+                token->setLeft(command_stack.back());
+                command_stack.pop_back();
+            }
+            command_stack.push_back(token);
         }
         else if (temp.at(0) == "||") {
+            orToken* token;
+            if(!command_stack.empty()) {
+                token->setRight(command_stack.back());
+                command_stack.pop_back();
+            }
+            if(!command_stack.empty()) {
+                token->setLeft(command_stack.back());
+                command_stack.pop_back();
+            }
+            command_stack.push_back(token);
         }
         else if (temp.at(0) == ";") {
+            nextToken* token;
+            if(!command_stack.empty()) {
+                token->setRight(command_stack.back());
+                command_stack.pop_back();
+            }
+            if(!command_stack.empty()) {
+                token->setLeft(command_stack.back());
+                command_stack.pop_back();
+            }
+            command_stack.push_back(token);
+        }
+        else if (temp.at(0) == "--q") {
+            quitToken* token;
+            command_stack.push_back(token);
         }
         else {
+            //need to add:
+            //Executable executable = new executable(temp);
+            //command_stack.push_back(executable);
+            int size = temp.size() + 1;
+            char *argv[size];
+            for (int i = 0; i < size; i++) {
+                strcpy(argv[i],temp.at(i).c_str());
+            }
+            argv[size-1] = NULL;
+            Executable* executable = new Executable(argv);
+            command_stack.push_back(executable);
         }
     }
     return command_stack.back();

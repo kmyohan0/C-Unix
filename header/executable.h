@@ -8,15 +8,17 @@
 #include <vector>
 #include <sys/types.h>
 #include <unistd.h>
+#include  <stdio.h>
+#include  <sys/wait.h>
 
 using namespace std;
 
 class Executable : public base{
 
         private:
-                char ** command;
+                char **command;
         public:
-                executable(char ** command);
+                Executable(char **command);
                 bool execute();
 };
 

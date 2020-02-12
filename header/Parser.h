@@ -16,9 +16,14 @@
 #include <stack>
 #include <boost/tokenizer.hpp>
 #include "../header/base.h"
-#include "base.h"
-
+#include "../header/andToken.h"
+#include "../header/nextToken.h"
+#include "../header/orToken.h"
+#include "../header/quitToken.h"
+#include "../header/executable.h"
 using namespace std;
+
+class base;
 
 class Parser {
 public:

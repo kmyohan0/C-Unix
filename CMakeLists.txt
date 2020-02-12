@@ -13,7 +13,7 @@ find_package(Boost 1.41.0 COMPONENTS filesystem regex)
 
 if(Boost_FOUND)
     include_directories(${Boost_INCLUDE_DIRS})
-    add_executable(main src/main.cpp src/Parser.cpp)
+    add_executable(main src/main.cpp src/Parser.cpp src/andToken.cpp src/orToken.cpp  src/quitToken.cpp src/nextToken.cpp src/executable.cpp)
     target_link_libraries(main ${Boost_LIBRARIES})
 endif()
 

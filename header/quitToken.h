@@ -5,8 +5,8 @@
 #include "../header/base.h"
 
 class quitToken : public base {
-        public:
-                bool execute();
+public:
+    bool execute();
 };
 
 #endif 

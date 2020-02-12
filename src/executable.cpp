@@ -17,7 +17,7 @@ bool Executable::execute()
 		if (execvp(*command, command) < 0)
 		{
 			perror("Exec failed.");
-			exit(-24);
+			exit(-1);
 		}
 		status = 1;
 		exit(1);  
@@ -25,22 +25,20 @@ bool Executable::execute()
 	else if (pid < 0)
 	{
 		perror("Fork failed.");
-		exit(-8);
+		exit(-1);
 	}
 	else
 	{
-		if (waitpid(pid, status, WCONTINUED) < 0)
+		if (waitpid(pid, &status, WCONTINUED) < 0)
 		{
 			perror("waitPid failed");
+			exit(-1);
 		}
 		if (status == 0)
 		{
 			return true;
 		}
-		else
-		{
-			return false;
-		}
+		return false;
 	}
 	return false;	 
 }

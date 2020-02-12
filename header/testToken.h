@@ -13,11 +13,18 @@ using namespace std;
 class testToken : public base {
 private:
     string command;
+    bool boolean;
 public:
+    testToken   (bool boolean) {this->boolean = boolean;};
     testToken   (string command) {this->command = command;};
     bool execute() {
-        cout << command << endl;
-        return true;
+        if (boolean != NULL) {
+            cout << command << endl;
+            return true;
+        }
+        else {
+            return boolean;
+        }
     };
 };
 
