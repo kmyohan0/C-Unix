@@ -137,8 +137,8 @@ base *Parser::postToTree(vector<vector<string>> tokenList) {
             //command_stack.push_back(executable);
             int size = temp.size() + 1;
             char *argv[size];
-            for (int i = 0; i < size; i++) {
-                strcpy(argv[i],temp.at(i).c_str());
+            for (int i = 0; i < size -1; i++) {
+                strcpy(argv[i], temp.at(i).c_str());
             }
             argv[size-1] = NULL;
             Executable* executable = new Executable(argv);
