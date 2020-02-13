@@ -104,7 +104,7 @@ base *Parser::postToTree(vector<vector<string>> tokenList) {
             command_stack.push_back(token);
         }
         else if (temp.at(0) == "||") {
-            orToken* token;
+            orToken* token = new orToken();
             if(!command_stack.empty()) {
                 token->setRight(command_stack.back());
                 command_stack.pop_back();
@@ -116,7 +116,7 @@ base *Parser::postToTree(vector<vector<string>> tokenList) {
             command_stack.push_back(token);
         }
         else if (temp.at(0) == ";") {
-            nextToken* token;
+            nextToken* token = new nextToken();
             if(!command_stack.empty()) {
                 token->setRight(command_stack.back());
                 command_stack.pop_back();
@@ -128,7 +128,7 @@ base *Parser::postToTree(vector<vector<string>> tokenList) {
             command_stack.push_back(token);
         }
         else if (temp.at(0) == "--q") {
-            quitToken* token;
+            quitToken* token = new quitToken();
             command_stack.push_back(token);
         }
         else {
@@ -149,12 +149,12 @@ base *Parser::postToTree(vector<vector<string>> tokenList) {
 //                argv[i] = const_cast<char *>(str_temp.c_str());
 //            }
 //            argv[size-1] = NULL;
-            vector<string> commands;
-            for (int i = 0; i < temp.size(); i++) {
-                commands.push_back(temp.at(i));
-            }
+
+//            for (int i = 0; i < temp.size(); i++) {
+//                commands.push_back(temp.at(i));
+//            }
 //            commands.push_back(NULL);
-            Executable* executable = new Executable(commands);
+             Executable* executable = new Executable(temp);
             command_stack.push_back(executable);
         }
     }

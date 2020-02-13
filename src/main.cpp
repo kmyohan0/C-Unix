@@ -24,6 +24,7 @@ int main() {
             continue;
         }
         parser->parseCommand(input);
+        delete parser;
         //parse it
         //inside Parser class, there will be a execute function that actually runs it.
     }

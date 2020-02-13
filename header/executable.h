@@ -17,7 +17,7 @@ using namespace std;
 class Executable : public base{
 
         private:
-                char* command[];
+                vector<char *> token_command;
         public:
                 Executable(vector<string> command_token);
                 bool execute();
