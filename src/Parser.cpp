@@ -153,7 +153,7 @@ base *Parser::postToTree(vector<vector<string>> tokenList) {
             for (int i = 0; i < temp.size(); i++) {
                 commands.push_back(temp.at(i));
             }
-            commands.push_back(NULL);
+//            commands.push_back(NULL);
             Executable* executable = new Executable(commands);
             command_stack.push_back(executable);
         }
