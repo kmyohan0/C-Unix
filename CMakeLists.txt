@@ -17,3 +17,10 @@ if(Boost_FOUND)
     target_link_libraries(main ${Boost_LIBRARIES})
 endif()
 
+ADD_EXECUTABLE(
+        parser_unit_test
+        unit_tests/parser_test.cpp
+)
+
+TARGET_LINK_LIBRARIES(parser_unit_test gtest)
+TARGET_COMPILE_DEFINITIONS(parser_unit_test PRIVATE gtest_disable_pthreads=ON)

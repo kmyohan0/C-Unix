@@ -20,10 +20,10 @@ int main() {
         Parser* parser = new Parser;
         cout << "$ ";
         getline(cin, input);
-        parser->parseCommand(input);
         if (input == "") {
-            exit(1);
+            continue;
         }
+        parser->parseCommand(input);
         //parse it
         //inside Parser class, there will be a execute function that actually runs it.
     }

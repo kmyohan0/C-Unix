@@ -10,15 +10,16 @@
 #include <unistd.h>
 #include  <stdio.h>
 #include  <sys/wait.h>
+#include <string.h>
 
 using namespace std;
 
 class Executable : public base{
 
         private:
-                char **command;
+                char* command[];
         public:
-                Executable(char **command);
+                Executable(vector<string> command_token);
                 bool execute();
 };
 

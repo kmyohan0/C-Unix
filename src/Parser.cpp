@@ -141,14 +141,20 @@ base *Parser::postToTree(vector<vector<string>> tokenList) {
 //                strcpy(argv[i], string_temp.c_str());
 //            }
 //            argv[size-1] = NULL;
-            int size = temp.size() + 1;
-            char*argv[size];
-            for (int i = 0; i < size -1; i++) {
-                string str_temp =  temp.at(i);
-                argv[i] = const_cast<char *>(str_temp.c_str());
+
+//            int size = temp.size() + 1;
+//            char* argv[size];
+//            for (int i = 0; i < size -1; i++) {
+//                string str_temp =  temp.at(i);
+//                argv[i] = const_cast<char *>(str_temp.c_str());
+//            }
+//            argv[size-1] = NULL;
+            vector<string> commands;
+            for (int i = 0; i < temp.size(); i++) {
+                commands.push_back(temp.at(i));
             }
-            argv[size-1] = NULL;
-            Executable* executable = new Executable(argv);
+            commands.push_back(NULL);
+            Executable* executable = new Executable(commands);
             command_stack.push_back(executable);
         }
     }
