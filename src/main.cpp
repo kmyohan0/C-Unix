@@ -13,7 +13,7 @@
 using namespace std;
 
 int main() {
-    cout << "Running... -q to quit" << endl;
+    cout << "Running... type \"exit\" to quit" << endl;
     while (true) {
         string input;
         //instantiate Parser

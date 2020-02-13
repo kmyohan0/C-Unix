@@ -27,22 +27,16 @@ void Parser::parseString(vector<string> &tokenList) {
     boost::tokenizer<boost::char_separator<char>>::iterator tokenizer_itr;
     for (tokenizer_itr = tokenizer.begin(); tokenizer_itr != tokenizer.end(); tokenizer_itr++) {
         string token = *tokenizer_itr;
-        tokenList.insert(tokenList.begin() + i, token);
         if (token[0] == '#') { // if we find comment, then iterate through remaining iterators so that we ignore characters that
             // comes after the comment
-            boost::tokenizer< boost::char_separator<char> >::iterator temp = tokenizer_itr;
-            ++temp;
-            while(temp != tokenizer.end())
-            {
-                ++temp;
-                ++tokenizer_itr;
-            }
-
-            tokenList.shrink_to_fit();
+            break;
         }
+        tokenList.insert(tokenList.begin() + i, token);
         i++;
     }
-    tokenList.erase(tokenList.end() - 1);
+    if (tokenList.size() != 0) {
+        tokenList.erase(tokenList.end() - 1);
+    }
 }
 
 
@@ -127,7 +121,7 @@ base *Parser::postToTree(vector<vector<string>> tokenList) {
             }
             command_stack.push_back(token);
         }
-        else if (temp.at(0) == "--q") {
+        else if (temp.at(0) == "exit") {
             quitToken* token = new quitToken();
             command_stack.push_back(token);
         }
@@ -157,6 +151,11 @@ base *Parser::postToTree(vector<vector<string>> tokenList) {
              Executable* executable = new Executable(temp);
             command_stack.push_back(executable);
         }
+    }
+    if (command_stack.empty()) {
+        vector<string> temp;
+        Executable* executable = new Executable(temp);
+        command_stack.push_back(executable);
     }
     return command_stack.back();
 }
