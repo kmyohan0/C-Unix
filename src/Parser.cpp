@@ -22,15 +22,26 @@ void Parser::parseString(vector<string> &tokenList) {
  * 3. Change compound string into tokens.*/
     int i = 0;
     string compoundToken = tokenList.at(0);
+    // implement \"\' in the separator
     boost::char_separator<char> separator(" ", ";");
     boost::tokenizer<boost::char_separator<char>> tokenizer(compoundToken, separator);
     boost::tokenizer<boost::char_separator<char>>::iterator tokenizer_itr;
     for (tokenizer_itr = tokenizer.begin(); tokenizer_itr != tokenizer.end(); tokenizer_itr++) {
         string token = *tokenizer_itr;
-        if (token[0] == '#') { // if we find comment, then iterate through remaining iterators so that we ignore characters that
-            // comes after the comment
+        if (token[0] == '#') {
+            /* if we find comment, then iterate through remaining
+             * iterators so that we ignore characters that
+             * comes after the comment
+             * */
             break;
         }
+//        else if (token[0] == '\"' || token[0] == '\'') {
+//            /*if we find quotation mark, then we should iterate through all
+//             * token elements until we find end quotation mark. If we find it,
+//             * then consider all strings that are in quotation as one argumentlist
+//             */
+//
+//        }
         tokenList.insert(tokenList.begin() + i, token);
         i++;
     }
@@ -148,6 +159,7 @@ base *Parser::postToTree(vector<vector<string>> tokenList) {
 //                commands.push_back(temp.at(i));
 //            }
 //            commands.push_back(NULL);
+
              Executable* executable = new Executable(temp);
             command_stack.push_back(executable);
         }
