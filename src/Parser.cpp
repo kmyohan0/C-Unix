@@ -26,8 +26,29 @@ void Parser::parseString(vector<string> &tokenList) {
     boost::char_separator<char> separator(" ", ";");
     boost::tokenizer<boost::char_separator<char>> tokenizer(compoundToken, separator);
     boost::tokenizer<boost::char_separator<char>>::iterator tokenizer_itr;
+    bool find = false;
+    vector<string> needsToAdd;
+    int k = 0;
     for (tokenizer_itr = tokenizer.begin(); tokenizer_itr != tokenizer.end(); tokenizer_itr++) {
         string token = *tokenizer_itr;
+        boost::tokenizer<boost::char_separator<char>>::iterator quoStart;
+        for (int j = 0; j < token.size(); j++) {
+            char character = token.at(j);
+            if (character == '"') {
+                if (!find) {
+                    find = true;
+                    k = i;
+                }
+                else {
+                    for (int m = 0; m < (i-k); m++) {
+                        token = needsToAdd.back() + " " + token;
+                        needsToAdd.pop_back();
+                    }
+                    token.erase(remove(token.begin(),token.end(),'\"'),token.end());
+                    find = false;
+                }
+            }
+        }
         if (token[0] == '#') {
             /* if we find comment, then iterate through remaining
              * iterators so that we ignore characters that
@@ -35,19 +56,20 @@ void Parser::parseString(vector<string> &tokenList) {
              * */
             break;
         }
-//        else if (token[0] == '\"' || token[0] == '\'') {
-//            /*if we find quotation mark, then we should iterate through all
-//             * token elements until we find end quotation mark. If we find it,
-//             * then consider all strings that are in quotation as one argumentlist
-//             */
-//
-//        }
-        tokenList.insert(tokenList.begin() + i, token);
+        if (!find) {
+
+            //token.erase(remove(token.begin(),token.end(),'\"'),token.end());
+            tokenList.insert(tokenList.begin() + i, token);
+        }
+        else {
+            needsToAdd.push_back(token);
+        }
         i++;
     }
     if (tokenList.size() != 0) {
         tokenList.erase(tokenList.end() - 1);
     }
+
 }
 
 
@@ -160,7 +182,7 @@ base *Parser::postToTree(vector<vector<string>> tokenList) {
 //            }
 //            commands.push_back(NULL);
 
-             Executable* executable = new Executable(temp);
+            Executable* executable = new Executable(temp);
             command_stack.push_back(executable);
         }
     }
