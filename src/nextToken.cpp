@@ -33,6 +33,11 @@ bool nextToken::execute()
 		}
 		return true;
 	}
+    else if (right != nullptr)
+    {
+        right->execute();
+        return true;
+    }
 	return false;
 }
 
