@@ -29,6 +29,7 @@ void Parser::parseString(vector<string> &tokenList) {
     bool find = false;
     vector<string> needsToAdd;
     int k = 0;
+    int lastPlace = 0;
     for (tokenizer_itr = tokenizer.begin(); tokenizer_itr != tokenizer.end(); tokenizer_itr++) {
         string token = *tokenizer_itr;
         boost::tokenizer<boost::char_separator<char>>::iterator quoStart;
@@ -59,7 +60,8 @@ void Parser::parseString(vector<string> &tokenList) {
         if (!find) {
 
             //token.erase(remove(token.begin(),token.end(),'\"'),token.end());
-            tokenList.insert(tokenList.begin() + i, token);
+            tokenList.insert(tokenList.begin() + lastPlace, token);
+            lastPlace++;
         }
         else {
             needsToAdd.push_back(token);
