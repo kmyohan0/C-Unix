@@ -13,14 +13,14 @@ find_package(Boost 1.41.0 COMPONENTS filesystem regex)
 
 if(Boost_FOUND)
     include_directories(${Boost_INCLUDE_DIRS})
-    add_executable(main src/main.cpp src/Parser.cpp src/andToken.cpp src/orToken.cpp  src/quitToken.cpp src/nextToken.cpp src/executable.cpp)
-    target_link_libraries(main ${Boost_LIBRARIES})
+    add_executable(rshell src/main.cpp src/Parser.cpp src/andToken.cpp src/orToken.cpp  src/quitToken.cpp src/nextToken.cpp src/executable.cpp)
+    target_link_libraries(rshell ${Boost_LIBRARIES})
 endif()
 
 ADD_EXECUTABLE(
-        parser_unit_test
-        unit_tests/parser_test.cpp
+        test
+        unit_tests/unit_tests.cpp src/Parser.cpp src/andToken.cpp src/orToken.cpp  src/quitToken.cpp src/nextToken.cpp src/executable.cpp
 )
 
-TARGET_LINK_LIBRARIES(parser_unit_test gtest)
-TARGET_COMPILE_DEFINITIONS(parser_unit_test PRIVATE gtest_disable_pthreads=ON)
+TARGET_LINK_LIBRARIES(test gtest)
+TARGET_COMPILE_DEFINITIONS(test PRIVATE gtest_disable_pthreads=ON)

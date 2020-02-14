@@ -1,8 +1,8 @@
 //
-// Created by Yohan on 2/12/2020.
+// Created by Yohan on 2/13/2020.
 //
 
-#include "parser_test.hpp"
+#include "../unit_tests/unit_tests.hpp"
 #include "gtest/gtest.h"
 
 int main(int argc, char **argv) {

@@ -3,8 +3,8 @@
 
 nextToken::nextToken()
 {
-        left = NULL;
-        right = NULL;
+        left = nullptr;
+        right = nullptr;
 }
 
 void nextToken::setLeft(base* left)
@@ -19,18 +19,19 @@ void nextToken::setRight(base* right)
 
 bool nextToken::execute()
 {
-	if(left == NULL && right == NULL)
+	if(left == nullptr && right == nullptr)
 	{	
 		return false;
 	}
-	if (left != NULL)
+	if (left != nullptr)
 	{
 		left->execute();
-		if (right != NULL)
+		if (right != nullptr)
 		{
 			right->execute();
+			return true;
 		}
-		return true; 
+		return true;
 	}
 	return false;
 }

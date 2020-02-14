@@ -12,18 +12,24 @@ using namespace std;
 
 class testToken : public base {
 private:
-    string command;
+    string command = "";
     bool boolean;
 public:
-    testToken   (bool boolean) {this->boolean = boolean;};
     testToken   (string command) {this->command = command;};
+    testToken   (bool boolean) {this->boolean = boolean;};
+    testToken   (string command, bool boolean) {this->boolean = boolean; this->command = command;};
     bool execute() {
         if (boolean != NULL) {
-            cout << command << endl;
-            return true;
+            if (boolean) {
+                cout << command;
+                return boolean;
+            }
+            else {
+                return boolean;
+            }
         }
         else {
-            return boolean;
+            return false;
         }
     };
 };

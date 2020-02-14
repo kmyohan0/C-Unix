@@ -20,22 +20,32 @@ void orToken::setRight(base* right)
 
 bool orToken::execute()
 {
-	if (left != NULL && right != NULL)
-	{
-		if (left->execute())
-		{
-			return true;
-		}
-		else if(right->execute())
-		{
-			return true;
-		}
-		else 
-		{
-			return false;
-		}
-		return false;
+	if (left != NULL) {
+	    if (left->execute()) {
+	        return true;
+	    }
+	    else {
+            if (right != NULL) {
+                if (right->execute()) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+	        return false;
+	    }
+	    return false;
 	}
-	return false; 
+	else {
+        if (right != NULL) {
+            if (right->execute()) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+    }
 }
 
