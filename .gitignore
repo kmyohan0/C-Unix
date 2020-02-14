@@ -34,8 +34,10 @@
 rshell
 test
 
+
 # CMake Temp Files
 CMakeCache.txt
 CMakeFiles
 
 #Temp Ignore File
+bin
