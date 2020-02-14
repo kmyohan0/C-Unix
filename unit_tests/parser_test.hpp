@@ -9,7 +9,7 @@
 #include "../header/orToken.h"
 #include "../header/executable.h"
 #include "../header/nextToken.h"
-#include "../header/parser.h"
+#include "../header/Parser.h"
 #include "../header/quitToken.h"
 #include "gtest/gtest.h"
 
