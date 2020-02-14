@@ -23,9 +23,6 @@ This class will translate user's composite inputs into executable commands for t
 ## __Base__:
 This class is going to be a super class for all of our following tokens classes. It will set up getters and setters for left and right processes, and provide a general execute function that handles all Linux commands (i.e. cd, ls, etc.). This base class is especially important because it follows the composite design pattern, and allows for future scaling. With new tokens that will surely be added in the future, it allows us to scale up really easily by inheriting from this Base class for all token classes that we will write.
 
-## __Test__:
-This class will handle all the test classes that we make. This will input a generic case, edge cases, and possibly incorrect cases so that we can actually figure out how the code is working or which part is not working. Testing class will use google test (Gtest), and thus it will be essential to know what specific outcome will be. So one possible idea is to have another person to actually use pure linux terminal, and code the desired code and set outcome as Gtest ”expected”. 
-
 
 ## __Token(Connectors)__:
 Token class will represent the order of the commands that the user has inputted. That means, each token classes will have an order of operation and also be dependent by previous process. Since this class is derived from base class, it will have a specific `execute()` function for each token class. It will be important that when dealing with connector token classes, we need to make sure that we are using `virtual` function for base class so that when we execute the command from the root of the tree, it can come down to specific connector classes.
