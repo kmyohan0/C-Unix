@@ -58,52 +58,17 @@ To get our program to full functionality with the greatest effiency possible, th
 ## Designing our Base Class
 This class will be essential to the functionality of our program, and is a good choice as the first development task that we need to work on. Following a composite pattern, this class will serve as a super-class to all of our tokens and because of that is required to be constructed first. Integration testing this class will be important as it will serve as the super-class for several token classes now and in the future.
 
-* Creating Base class
-https://github.com/cs100/assignment-cout-ideas/issues/5
-
-* Integration Testing for Base class
-https://github.com/cs100/assignment-cout-ideas/issues/9
 
 ## Creating our Token Classes
 
 These token classes will be the sub-classes inheriting from the Base class and will focus on executable commands. When one token class is completed, it is important to acknowledge all possible cases that are related with each token. These token classes include our connectors, such as &&, ;, ||. Building out our token classes as subclasses is especially important to the composite pattern, as an inheritance from the Base class will make our program easily scaleable regarding the creation of new token classes. As this is a cumulative project, it's crucial that we can build on existing code without compromising it, and our token classes are an example of that. 
 
-* Creating andToken class
-https://github.com/cs100/assignment-cout-ideas/issues/12
 
-* Integration Testing for andToken class
-https://github.com/cs100/assignment-cout-ideas/issues/13
-
-* Creating orToken class
-https://github.com/cs100/assignment-cout-ideas/issues/10
-
-* Integration Testing for orToken class
-https://github.com/cs100/assignment-cout-ideas/issues/14
-
-* Creating quitToken class
-https://github.com/cs100/assignment-cout-ideas/issues/11
-
-* Integration Testing for quitToken class
-https://github.com/cs100/assignment-cout-ideas/issues/15
 
 
 ## Parser Class
 
 The functions of this class will be especially important in the functionality and operation of our program. This class is already being developed as a result of Assignmnent 1, and will need to be completed in Assignment 2. Because this function will be a main part and potentially the first class committed to master branch, unit testing is essential and potential changes for this class are to be anticipated. Unit Tests will also be important to make sure that our Parser class is functioning correctly.
-
-* Creating Parser class 
-https://github.com/cs100/assignment-cout-ideas/issues/4
-
-* Unit Testing Parser class
-https://github.com/cs100/assignment-cout-ideas/issues/7
-
-*Integration Testing Parser class
-https://github.com/cs100/assignment-cout-ideas/issues/8
-
-
-
-
-
 
 
 
