@@ -20,12 +20,13 @@
 #include "../header/nextToken.h"
 #include "../header/orToken.h"
 #include "../header/quitToken.h"
-#include "../header/executable.h"
+#include "executeToken.h"
+#include "testToken.h"
 using namespace std;
 
 class base;
 
-class Parser {
+class parser {
 public:
     vector<string> elements;
     void parseString(vector<string>& tokenList);

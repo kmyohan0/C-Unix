@@ -1,9 +1,9 @@
 //
 // Created by Yohan on 2/5/2020.
 //
-#include "../header/Parser.h"
+#include "../header/parser.h"
 
-void Parser::parseCommand(string input) {
+void parser::parseCommand(string input) {
     vector<string> tokenList;
     tokenList.push_back(input);
     parseString(tokenList);
@@ -13,7 +13,7 @@ void Parser::parseCommand(string input) {
     root->execute();
 }
 
-void Parser::parseString(vector<string> &tokenList) {
+void parser::parseString(vector<string> &tokenList) {
 /*
  * Things that I need to think about
  * 0. use string iteration to take out anything that follows with # (comment)
@@ -23,7 +23,7 @@ void Parser::parseString(vector<string> &tokenList) {
     int i = 0;
     string compoundToken = tokenList.at(0);
     // implement \"\' in the separator
-    boost::char_separator<char> separator(" ", ";");
+    boost::char_separator<char> separator(" ", ";[]");
     boost::tokenizer<boost::char_separator<char>> tokenizer(compoundToken, separator);
     boost::tokenizer<boost::char_separator<char>>::iterator tokenizer_itr;
     bool find = false;
@@ -58,7 +58,6 @@ void Parser::parseString(vector<string> &tokenList) {
             break;
         }
         if (!find) {
-
             //token.erase(remove(token.begin(),token.end(),'\"'),token.end());
             tokenList.insert(tokenList.begin() + lastPlace, token);
             lastPlace++;
@@ -75,7 +74,7 @@ void Parser::parseString(vector<string> &tokenList) {
 }
 
 
-vector<vector<string>> Parser::toPostFix(vector<string> &tokenList) {
+vector<vector<string>> parser::toPostFix(vector<string> &tokenList) {
     vector<string> string_entry;
     stack<string> lists;
     vector<vector<string> > postFix;
@@ -115,7 +114,7 @@ vector<vector<string>> Parser::toPostFix(vector<string> &tokenList) {
     return postFix;
 }
 
-base *Parser::postToTree(vector<vector<string>> tokenList) {
+base *parser::postToTree(vector<vector<string>> tokenList) {
     vector<base* > command_stack;
     for (int i  = 0; i < tokenList.size(); i++) {
         vector<string> temp = tokenList.at(i);
@@ -158,6 +157,10 @@ base *Parser::postToTree(vector<vector<string>> tokenList) {
         }
         else if (temp.at(0) == "exit") {
             quitToken* token = new quitToken();
+            command_stack.push_back(token);
+        }
+        else if (temp.at(0) == "test" || temp.at(0) == "[") {
+            testToken* token = new testToken(temp);
             command_stack.push_back(token);
         }
         else {

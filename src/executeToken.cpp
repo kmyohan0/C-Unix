@@ -1,15 +1,9 @@
 
-#include "../header/executable.h"
+#include "../header/executeToken.h"
 
 
 Executable::Executable(vector<string> command_token)
 {
-//    int size = command_token.size() +1;
-//    command[size];
-//    for (int i = 0; i < command_token.size(); i++) {
-//        command[i] = const_cast<char*>( command_token.at(i).c_str());
-//    }
-//    command[size -1] = NULL;
     for (int i = 0; i < command_token.size(); i++) {
         token_command.push_back(const_cast<char *> (command_token.at(i).c_str()));
     }

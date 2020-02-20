@@ -8,16 +8,16 @@
 #include "gtest/gtest.h"
 #include "../header/orToken.h"
 #include "../header/andToken.h"
-#include "../header/testToken.h"
+#include "../header/testingToken.h"
 #include "../header/nextToken.h"
-/* testToken is like a executable token where you can set
+/* testingToken is like a executable token where you can set
  * them as bool of true or false to easily test component classes*/
 
 using namespace std;
 /* test for OrToken */
 TEST(orTokenTest, simpleOrtest) {
-    testToken* A = new testToken("A", true);
-    testToken* B = new testToken("B", true);
+    testingToken* A = new testingToken("A", true);
+    testingToken* B = new testingToken("B", true);
     orToken* token = new orToken();
     token->setLeft(A);
     token->setRight(B);
@@ -28,8 +28,8 @@ TEST(orTokenTest, simpleOrtest) {
 }
 
 TEST(orTokenTest, failFirst) {
-    testToken* A = new testToken("A", false);
-    testToken* B = new testToken("B", true);
+    testingToken* A = new testingToken("A", false);
+    testingToken* B = new testingToken("B", true);
     orToken* token = new orToken();
     token->setLeft(A);
     token->setRight(B);
@@ -40,8 +40,8 @@ TEST(orTokenTest, failFirst) {
 }
 
 TEST(orTokenTest, failSecond) {
-    testToken* A = new testToken("A", true);
-    testToken* B = new testToken("B", false);
+    testingToken* A = new testingToken("A", true);
+    testingToken* B = new testingToken("B", false);
     orToken* token = new orToken();
     token->setLeft(A);
     token->setRight(B);
@@ -52,8 +52,8 @@ TEST(orTokenTest, failSecond) {
 }
 
 TEST(orTokenTest, failBoth) {
-    testToken* A = new testToken("A", false);
-    testToken* B = new testToken("B", false);
+    testingToken* A = new testingToken("A", false);
+    testingToken* B = new testingToken("B", false);
     orToken* token = new orToken();
     token->setLeft(A);
     token->setRight(B);
@@ -64,10 +64,10 @@ TEST(orTokenTest, failBoth) {
 }
 
 TEST(orTokenTest, usingMultipleOrToken) {
-    testToken* A = new testToken("A", true);
-    testToken* B = new testToken("B", true);
-    testToken* C = new testToken("C", false);
-    testToken* D = new testToken("D", true);
+    testingToken* A = new testingToken("A", true);
+    testingToken* B = new testingToken("B", true);
+    testingToken* C = new testingToken("C", false);
+    testingToken* D = new testingToken("D", true);
     orToken* token = new orToken();
     orToken* token2 = new orToken();
     orToken* token3 = new orToken();
@@ -90,7 +90,7 @@ TEST(orTokenTest, orTokenTest_noLeafs_Test) {
 
 TEST(orTokenTest, orTokenTest_onlyOneLeaf_atLeft_Test) {
     orToken* token = new orToken();
-    testToken* A = new testToken("A",true);
+    testingToken* A = new testingToken("A", true);
     token->setLeft(A);
     testing::internal::CaptureStdout();
     token->execute();
@@ -100,7 +100,7 @@ TEST(orTokenTest, orTokenTest_onlyOneLeaf_atLeft_Test) {
 
 TEST(orTokenTest, orTokenTest_onlyOneLeaf_atRight_Test) {
     orToken *token = new orToken();
-    testToken *A = new testToken("A",true);
+    testingToken *A = new testingToken("A", true);
     token->setRight(A);
     testing::internal::CaptureStdout();
     token->execute();
@@ -111,8 +111,8 @@ TEST(orTokenTest, orTokenTest_onlyOneLeaf_atRight_Test) {
 /* Test for AndToken */
 
 TEST(andTokenTest, simpleAndtest) {
-    testToken* A = new testToken("A", true);
-    testToken* B = new testToken("B", true);
+    testingToken* A = new testingToken("A", true);
+    testingToken* B = new testingToken("B", true);
     andToken* token = new andToken();
     token->setLeft(A);
     token->setRight(B);
@@ -123,8 +123,8 @@ TEST(andTokenTest, simpleAndtest) {
 }
 
 TEST(andTokenTest, failFirst) {
-    testToken* A = new testToken("A", false);
-    testToken* B = new testToken("B", true);
+    testingToken* A = new testingToken("A", false);
+    testingToken* B = new testingToken("B", true);
     andToken* token = new andToken();
     token->setLeft(A);
     token->setRight(B);
@@ -135,8 +135,8 @@ TEST(andTokenTest, failFirst) {
 }
 
 TEST(andTokenTest, failSecond) {
-    testToken *A = new testToken("A", true);
-    testToken *B = new testToken("B", false);
+    testingToken *A = new testingToken("A", true);
+    testingToken *B = new testingToken("B", false);
     andToken *token = new andToken();
     token->setLeft(A);
     token->setRight(B);
@@ -147,8 +147,8 @@ TEST(andTokenTest, failSecond) {
 }
 
 TEST(andTokenTest, failBoth) {
-    testToken* A = new testToken("A", false);
-    testToken* B = new testToken("B", false);
+    testingToken* A = new testingToken("A", false);
+    testingToken* B = new testingToken("B", false);
     andToken* token = new andToken();
     token->setLeft(A);
     token->setRight(B);
@@ -159,11 +159,11 @@ TEST(andTokenTest, failBoth) {
 }
 
 TEST(andTokenTest, usingMultipleAndToken) {
-    testToken* A = new testToken("A",true);
-    testToken* B = new testToken("B", false);
+    testingToken* A = new testingToken("A", true);
+    testingToken* B = new testingToken("B", false);
     andToken* token = new andToken();
-    testToken* C = new testToken("C", false);
-    testToken* D = new testToken("D", true);
+    testingToken* C = new testingToken("C", false);
+    testingToken* D = new testingToken("D", true);
     andToken* token2 = new andToken();
     andToken* token3 = new andToken();
     token->setLeft(A);
@@ -179,11 +179,11 @@ TEST(andTokenTest, usingMultipleAndToken) {
 }
 
 TEST(andTokenTest, usingMultipleAndToken_second) {
-    testToken* A = new testToken("A",true);
-    testToken* B = new testToken("B", true);
+    testingToken* A = new testingToken("A", true);
+    testingToken* B = new testingToken("B", true);
     andToken* token = new andToken();
-    testToken* C = new testToken("C", false);
-    testToken* D = new testToken("D", true);
+    testingToken* C = new testingToken("C", false);
+    testingToken* D = new testingToken("D", true);
     andToken* token2 = new andToken();
     andToken* token3 = new andToken();
     token->setLeft(A);
@@ -205,7 +205,7 @@ TEST(andTokenTest, noLeafs_Test) {
 
 TEST(andTokenTest, onlyOneLeaf_atLeft_Test) {
     andToken* token = new andToken();
-    testToken* testToken1 = new testToken("A", true);
+    testingToken* testToken1 = new testingToken("A", true);
     token->setLeft(testToken1);
     testing::internal::CaptureStdout();
     token->execute();
@@ -215,7 +215,7 @@ TEST(andTokenTest, onlyOneLeaf_atLeft_Test) {
 
 TEST(andTokenTest, onlyOneLeaf_atRight_Test) {
     andToken *token = new andToken();
-    testToken *testToken1 = new testToken("B", true);
+    testingToken *testToken1 = new testingToken("B", true);
     token->setRight(testToken1);
     testing::internal::CaptureStdout();
     token->execute();
@@ -226,8 +226,8 @@ TEST(andTokenTest, onlyOneLeaf_atRight_Test) {
 /* Test  for nextToken */
 
 TEST(nextTokenTest, simpleNexttest) {
-    testToken* A = new testToken("A", true);
-    testToken* B = new testToken("B", true);
+    testingToken* A = new testingToken("A", true);
+    testingToken* B = new testingToken("B", true);
     nextToken* token = new nextToken();
     token->setLeft(A);
     token->setRight(B);
@@ -238,8 +238,8 @@ TEST(nextTokenTest, simpleNexttest) {
 }
 
 TEST(nextTokenTest, failFirst) {
-    testToken* A = new testToken("A", false);
-    testToken* B = new testToken("B", true);
+    testingToken* A = new testingToken("A", false);
+    testingToken* B = new testingToken("B", true);
     nextToken* token = new nextToken();
     token->setLeft(A);
     token->setRight(B);
@@ -250,8 +250,8 @@ TEST(nextTokenTest, failFirst) {
 }
 
 TEST(nextTokenTest, failSecond) {
-    testToken* A = new testToken("A", true);
-    testToken* B = new testToken("B", false);
+    testingToken* A = new testingToken("A", true);
+    testingToken* B = new testingToken("B", false);
     nextToken* token = new nextToken();
     token->setLeft(A);
     token->setRight(B);
@@ -262,8 +262,8 @@ TEST(nextTokenTest, failSecond) {
 }
 
 TEST(nextTokenTest, failBoth) {
-    testToken* A = new testToken("A", false);
-    testToken* B = new testToken("B", false);
+    testingToken* A = new testingToken("A", false);
+    testingToken* B = new testingToken("B", false);
     nextToken* token = new nextToken();
     token->setLeft(A);
     token->setRight(B);
@@ -274,10 +274,10 @@ TEST(nextTokenTest, failBoth) {
 }
 
 TEST(nextTokenTest, usingMultipleNextToken) {
-    testToken* A = new testToken("A", true);
-    testToken* B = new testToken("B", true);
-    testToken* C = new testToken("C", false);
-    testToken* D = new testToken("D", true);
+    testingToken* A = new testingToken("A", true);
+    testingToken* B = new testingToken("B", true);
+    testingToken* C = new testingToken("C", false);
+    testingToken* D = new testingToken("D", true);
     nextToken* token = new nextToken();
     nextToken* token2 = new nextToken();
     nextToken* token3 = new nextToken();
@@ -300,7 +300,7 @@ TEST(nextTokenTest, nextTokenTest_noLeafs_Test) {
 
 TEST(nextTokenTest, nextTokenTest_onlyOneLeaf_atLeft_Test) {
     nextToken* token = new nextToken();
-    testToken* A = new testToken("A",true);
+    testingToken* A = new testingToken("A", true);
     token->setLeft(A);
     testing::internal::CaptureStdout();
     token->execute();
@@ -310,7 +310,7 @@ TEST(nextTokenTest, nextTokenTest_onlyOneLeaf_atLeft_Test) {
 
 TEST(nextTokenTest, nextTokenTest_onlyOneLeaf_atRight_Test) {
     nextToken *token = new nextToken();
-    testToken *A = new testToken("A",true);
+    testingToken *A = new testingToken("A", true);
     token->setRight(A);
     testing::internal::CaptureStdout();
     token->execute();

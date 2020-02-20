@@ -7,7 +7,7 @@
 #include "../header/orToken.h"
 #include "../header/quitToken.h"
 #include "../header/nextToken.h"
-#include "../header/testToken.h"
+#include "../header/testingToken.h"
 #include "../header/base.h"
 
 
