@@ -14,10 +14,13 @@
 #include  <stdio.h>
 #include  <sys/wait.h>
 #include <string.h>
+#include <sys/stat.h>
 
 class testToken : public base {
 private:
-    string command;
+    vector<char* > commands;
+    string flag;
+    char* filePath;
 public:
     testToken(vector<string> command);
     bool execute();

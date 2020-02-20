@@ -9,7 +9,6 @@ void parser::parseCommand(string input) {
     parseString(tokenList);
     vector<vector<string>>postList = toPostFix(tokenList);
     base* root = postToTree(postList);
-    //cout << "Workgin" << endl;
     root->execute();
 }
 
@@ -51,14 +50,9 @@ void parser::parseString(vector<string> &tokenList) {
             }
         }
         if (token[0] == '#') {
-            /* if we find comment, then iterate through remaining
-             * iterators so that we ignore characters that
-             * comes after the comment
-             * */
             break;
         }
         if (!find) {
-            //token.erase(remove(token.begin(),token.end(),'\"'),token.end());
             tokenList.insert(tokenList.begin() + lastPlace, token);
             lastPlace++;
         }
@@ -160,33 +154,10 @@ base *parser::postToTree(vector<vector<string>> tokenList) {
             command_stack.push_back(token);
         }
         else if (temp.at(0) == "test" || temp.at(0) == "[") {
-            testToken* token = new testToken(temp);
+            testToken *token = new testToken(temp);
             command_stack.push_back(token);
         }
         else {
-            //need to add:
-            //Executable executable = new executable(temp);
-            //command_stack.push_back(executable);
-//            int size = temp.size() + 1;
-//            for (int i = 0; i < size -1; i++) {
-//                string string_temp = temp.at(i);
-//                strcpy(argv[i], string_temp.c_str());
-//            }
-//            argv[size-1] = NULL;
-
-//            int size = temp.size() + 1;
-//            char* argv[size];
-//            for (int i = 0; i < size -1; i++) {
-//                string str_temp =  temp.at(i);
-//                argv[i] = const_cast<char *>(str_temp.c_str());
-//            }
-//            argv[size-1] = NULL;
-
-//            for (int i = 0; i < temp.size(); i++) {
-//                commands.push_back(temp.at(i));
-//            }
-//            commands.push_back(NULL);
-
             Executable* executable = new Executable(temp);
             command_stack.push_back(executable);
         }

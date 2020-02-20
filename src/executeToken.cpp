@@ -12,15 +12,15 @@ Executable::Executable(vector<string> command_token)
 
 bool Executable::execute()
 {
-	int status = 0;
-	pid_t pid;
+	int status = 1;
+	pid_t pid = fork();
 
-	if (pid = fork() == 0)
+	if (pid == 0)
 	{
 	    char** command = &token_command[0];
 		if (execvp( command[0], command) < 0)
 		{
-			perror("Exec failed.");
+			perror("command failed.");
 			exit(1);
 		}
 		status = 1;
@@ -28,14 +28,14 @@ bool Executable::execute()
 	}
 	else if (pid < 0)
 	{
-		perror("Fork failed.");
+		perror("Failed to fork.");
 		exit(1);
 	}
 	else
 	{
 		if (waitpid(pid, &status, WCONTINUED) < 0)
 		{
-			perror("waitPid failed");
+			perror("Failed to process waitpid");
 			exit(1);
 		}
 		if (status == 0)
