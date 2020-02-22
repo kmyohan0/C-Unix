@@ -22,7 +22,7 @@ void parser::parseString(vector<string> &tokenList) {
     int i = 0;
     string compoundToken = tokenList.at(0);
     // implement \"\' in the separator
-    boost::char_separator<char> separator(" ", ";[]");
+    boost::char_separator<char> separator(" ", ";[]()");
     boost::tokenizer<boost::char_separator<char>> tokenizer(compoundToken, separator);
     boost::tokenizer<boost::char_separator<char>>::iterator tokenizer_itr;
     bool find = false;
