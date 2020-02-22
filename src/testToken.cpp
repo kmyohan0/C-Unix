@@ -15,37 +15,41 @@ testToken::testToken(vector<string> testCommand) {
     //2nd: flag
     flag = commands.at(0);
     //3rd: filePath
-    string temp = commands.at(commands.size()  -1);
-    strcpy(filePath, temp.c_str());
+    filePath = commands.at(commands.size()  -1);
 }
 
 bool testToken::execute() {
     struct stat stats;
-    if (stat(reinterpret_cast<const char *>(&filePath), &stats) < 0) {
+    const char* filePathTemp = filePath;
+    if (stat(filePathTemp, &stats) < 0) {
         exit(1);
     }
-    if (S_ISREG(stats.st_mode) || S_ISDIR(stats.st_mode)) {
-        if (flag[1] == 'e') {
-            cout << "(True)" << endl;
-            return true;
-        }
-    }
-    else {
-        if (S_ISREG(stats.st_mode)) {
-            if (flag[1] == 'f') {
+    char switchChar = flag[1];
+    switch (switchChar) {
+        case 'e' : {
+            if (S_ISREG(stats.st_mode) || S_ISDIR(stats.st_mode)) {
                 cout << "(True)" << endl;
                 return true;
             }
             cout << "(False)" << endl;
             return false;
         }
-        else if (S_ISDIR(stats.st_mode)) {
-            if (flag[1] == 'd') {
+        case 'f' : {
+            if (S_ISREG(stats.st_mode)) {
                 cout << "(True)" << endl;
                 return true;
+            }
+            cout << "(False)" << endl;
+            return false;
+        }
+        case 'd' : {
+            if (S_ISDIR(stats.st_mode)) {
+            cout << "(True)" << endl;
+            return true;
             }
             cout << "(False)" << endl;
             return false;
         }
     }
 }
+
