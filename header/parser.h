@@ -30,6 +30,7 @@ class parser {
 public:
     vector<string> elements;
     void parseString(vector<string>& tokenList);
+    int priority(string token);
     vector<vector<string>> toPostFix(vector<string>& tokenList);
     base* postToTree(vector<vector<string>> tokenList);
 public:

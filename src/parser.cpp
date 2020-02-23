@@ -67,6 +67,22 @@ void parser::parseString(vector<string> &tokenList) {
 
 }
 
+int parser::priority(string token)
+{
+	if (token == "(")
+	{
+		return 2;
+	}
+	else if (token == "&&" || token == "||" || token == ";") 
+	{
+		return 1;
+	}
+	else 
+	{
+		return 0;
+	}	
+}
+
 
 vector<vector<string>> parser::toPostFix(vector<string> &tokenList) {
     vector<string> string_entry;
@@ -74,18 +90,59 @@ vector<vector<string>> parser::toPostFix(vector<string> &tokenList) {
     vector<vector<string> > postFix;
     for (int i = 0; i < tokenList.size(); i++) {
         string token = tokenList.at(i);
-        if (token == ";" || token == "||" || token == "&&") {
-            if (string_entry.size() > 0) {
-                postFix.push_back(string_entry);
-                string_entry.clear();
-            }
-            while (!lists.empty()) {
-                string connector = lists.top();
-                vector<string> connector_temp;
-                connector_temp.push_back(connector);
-                postFix.push_back(connector_temp);
-                lists.pop();
-            }
+        if (token == ";" || token == "||" || token == "&&" || token == "("
+	|| token == ")") {
+            if (token == "(")
+		{
+			postFix.push_back(string_entry);
+			string_entry.clear();
+			
+		}
+		else if (token == ")")
+		{	
+			if (string_entry.size() > 0) {
+               			 postFix.push_back(string_entry);
+                		string_entry.clear();
+			}
+			string temp = lists.top();
+			while (temp != "(")	
+			{	temp = lists.top();
+				vector<string> paren_temp;
+				paren_temp.push_back(temp);
+				postFix.push_back(paren_temp);
+				lists.pop();
+			}	
+		}
+		else
+		{	
+			if (string_entry.size() > 0) {
+               		 postFix.push_back(string_entry);
+                		string_entry.clear();
+			}	
+			while (!lists.empty() && priority(token) <= priority(lists.top()))
+			{
+				if (lists.top() == "(")
+				{
+					exit(1);
+				}
+				string temp = lists.top();
+				vector <string> paren_temp;
+				paren_temp.push_back(temp);
+				postFix.push_back(paren_temp);
+				lists.pop();			
+			}
+		}							
+		//if (string_entry.size() > 0) {
+                //postFix.push_back(string_entry);
+                //string_entry.clear();
+           // }
+           // while (!lists.empty()) {
+             //   string connector = lists.top();
+               // vector<string> connector_temp;
+               // connector_temp.push_back(connector);
+               // postFix.push_back(connector_temp);
+               // lists.pop();
+           // }
             lists.push(token);
         }
         else {
