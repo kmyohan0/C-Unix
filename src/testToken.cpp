@@ -15,14 +15,20 @@ testToken::testToken(vector<string> testCommand) {
     //2nd: flag
     flag = commands.at(0);
     //3rd: filePath
-    filePath = commands.at(commands.size()  -1);
+    if (commands.size() < 2) {
+        filePath = ".";
+    }
+    else {
+        filePath = commands.at(commands.size()  -1);
+    }
 }
 
 bool testToken::execute() {
     struct stat stats;
     const char* filePathTemp = filePath;
     if (stat(filePathTemp, &stats) < 0) {
-        exit(1);
+        cout << "(False)" << endl;
+        return false;
     }
     char switchChar = flag[1];
     switch (switchChar) {
@@ -44,8 +50,8 @@ bool testToken::execute() {
         }
         case 'd' : {
             if (S_ISDIR(stats.st_mode)) {
-            cout << "(True)" << endl;
-            return true;
+                cout << "(True)" << endl;
+                return true;
             }
             cout << "(False)" << endl;
             return false;
