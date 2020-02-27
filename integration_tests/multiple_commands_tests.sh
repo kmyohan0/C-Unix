@@ -1,4 +1,3 @@
-
 #!/bin/bash
 
 echo hello; echo world  >> multiple_command_outputs

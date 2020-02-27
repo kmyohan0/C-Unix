@@ -10,6 +10,8 @@
 #include "../header/andToken.h"
 #include "../header/testingToken.h"
 #include "../header/nextToken.h"
+#include "../header/testToken.h"
+#include "../header/parser.h"
 /* testingToken is like a executable token where you can set
  * them as bool of true or false to easily test component classes*/
 
@@ -315,8 +317,147 @@ TEST(nextTokenTest, nextTokenTest_onlyOneLeaf_atRight_Test) {
     testing::internal::CaptureStdout();
     token->execute();
     std::string output = testing::internal::GetCapturedStdout();
-    EXPECT_EQ(output, "");
+    EXPECT_EQ(output, "A");
 }
 
+//testToken unit_test
+TEST(testTokenTest, testTokenTest_flagEtest_Test) {
+    vector<string> commands;
+    commands.push_back("test");
+    commands.push_back("-e");
+    commands.push_back("bin");
+    testToken *token = new testToken(commands);
+    testing::internal::CaptureStdout();
+    token->execute();
+    std::string output = testing::internal::GetCapturedStdout();
+    EXPECT_EQ(output, "(True)\n");
+}
 
+TEST(testTokenTest, testTokenTest_flagDtest_Test) {
+    vector<string> commands;
+    commands.push_back("test");
+    commands.push_back("-d");
+    commands.push_back("bin");
+    testToken *token = new testToken(commands);
+    testing::internal::CaptureStdout();
+    token->execute();
+    std::string output = testing::internal::GetCapturedStdout();
+    EXPECT_EQ(output, "(True)\n");
+}
+
+TEST(testTokenTest, testTokenTest_flagFtest_Test) {
+    vector<string> commands;
+    commands.push_back("test");
+    commands.push_back("-f");
+    commands.push_back("main.exe"); //---> indicating the output file from make command
+    testToken *token = new testToken(commands);
+    testing::internal::CaptureStdout();
+    token->execute();
+    std::string output = testing::internal::GetCapturedStdout();
+    EXPECT_EQ(output, "(True)\n");
+}
+
+TEST(testTokenTest, testTokenTest_invalidGeneralTest_Test) {
+    vector<string> commands;
+    commands.push_back("test");
+    commands.push_back("-e");
+    commands.push_back("abcd");
+    testToken *token = new testToken(commands);
+    testing::internal::CaptureStdout();
+    token->execute();
+    std::string output = testing::internal::GetCapturedStdout();
+    EXPECT_EQ(output, "(False)\n");
+}
+
+TEST(testTokenTest, testTokenTest_invalidFilePathTest_Test) {
+    vector<string> commands;
+    commands.push_back("test");
+    commands.push_back("-f");
+    commands.push_back("abcd");
+    testToken *token = new testToken(commands);
+    testing::internal::CaptureStdout();
+    token->execute();
+    std::string output = testing::internal::GetCapturedStdout();
+    EXPECT_EQ(output, "(False)\n");
+}
+
+TEST(testTokenTest, testTokenTest_invalidDirectoryPathTest_Test) {
+    vector<string> commands;
+    commands.push_back("test");
+    commands.push_back("-d");
+    commands.push_back("abcd");
+    testToken *token = new testToken(commands);
+    testing::internal::CaptureStdout();
+    token->execute();
+    std::string output = testing::internal::GetCapturedStdout();
+    EXPECT_EQ(output, "(False)\n");
+}
+
+TEST(testTokenTest, testTokenTest_wrongFlagTest_Test) {
+    vector<string> commands;
+    commands.push_back("test");
+    commands.push_back("-d");
+    commands.push_back("main.exe"); //---> indicating the output file from make command
+    testToken *token = new testToken(commands);
+    testing::internal::CaptureStdout();
+    token->execute();
+    std::string output = testing::internal::GetCapturedStdout();
+    EXPECT_EQ(output, "(False)\n");
+}
+
+TEST(testTokenTest, testTokenTest_noFilePath_Test) {
+    vector<string> commands;
+    commands.push_back("test");
+    commands.push_back("-e");
+    testToken *token = new testToken(commands);
+    testing::internal::CaptureStdout();
+    token->execute();
+    std::string output = testing::internal::GetCapturedStdout();
+    //from Ubuntu bash, it still returns true so we follow same rule as theirs
+    EXPECT_EQ(output, "(True)\n");
+}
+
+TEST(testTokenTest, testTokenTest_symbolictest_Test) {
+    vector<string> commands;
+    commands.push_back("[");
+    commands.push_back("-e");
+    commands.push_back("bin");
+    commands.push_back("]");
+    testToken *token = new testToken(commands);
+    testing::internal::CaptureStdout();
+    token->execute();
+    std::string output = testing::internal::GetCapturedStdout();
+    EXPECT_EQ(output, "(True)\n");
+}
+
+//ParenthesisTest
+TEST(parenthesisTest, parenthesisTest_simpleParentheis_Test) {
+    parser* token = new parser;
+    string parenthesis = "(echo a && echo b) || (echo c || echo d)";
+    testing::internal::CaptureStdout();
+    token->parseCommand(parenthesis);
+    std::string output = testing::internal::GetCapturedStdout();
+    //from Ubuntu bash, it still returns true so we follow same rule as theirs
+    EXPECT_EQ(output, "a\nb\n");
+}
+
+TEST(parenthesisTest, parenthesisTest_doubleParentheis_Test) {
+    parser* token = new parser;
+    string parenthesis = "((echo a))";
+    testing::internal::CaptureStdout();
+    token->parseCommand(parenthesis);
+    std::string output = testing::internal::GetCapturedStdout();
+    //from Ubuntu bash, it still returns true so we follow same rule as theirs
+    EXPECT_EQ(output, "a\n");
+}
+
+TEST(parenthesisTest, parenthesisTest_multipleParentheis_Test) {
+    parser* token = new parser;
+    string parenthesis = "(((((echo a)))))";
+    testing::internal::CaptureStdout();
+    token->parseCommand(parenthesis);
+    std::string output = testing::internal::GetCapturedStdout();
+    //from Ubuntu bash, it still returns true so we follow same rule as theirs
+    EXPECT_EQ(output, "a\n");
+}
 #endif //RSHELL_UNIT_TESTS_HPP
