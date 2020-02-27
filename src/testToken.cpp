@@ -9,7 +9,7 @@ testToken::testToken(vector<string> testCommand) {
     }
     //1st: Remove test or bracket
     commands.erase(commands.begin());
-    if (commands.at(commands.size() -1) == "]") {
+    if (strcmp(commands.at(commands.size() -1),"]") == 0) {
         commands.pop_back();
     }
     //2nd: flag
