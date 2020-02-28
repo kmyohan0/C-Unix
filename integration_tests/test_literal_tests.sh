@@ -1,3 +1,5 @@
+#!/bin/bash
+
 echo testing \"test\" literal integration tests
 
 echo
