@@ -10,7 +10,7 @@ R'Shell is a UNIX-based command line user interface that can handle composite li
 
 # Diagram
 
-![Diagram for Assignment #2](https://github.com/cs100/assignment-cout-ideas/blob/master/images/R'Shell%20Assignment%202.png?raw=true)
+![Diagram for Assignment #2](https://github.com/cs100/assignment-cout-ideas/blob/master/images/R'Shell%20Assignment%203.png?raw=true)
 
 
 
