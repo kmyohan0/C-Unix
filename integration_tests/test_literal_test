@@ -1,8 +1,8 @@
-test -e bin || echo wrong
-test -d bin || echo wrong
-test -f bin || echo right_output
-(test -e bin ) && echo correct
-(test -e bin && echo hello) || echo notWorking
-(test -f bin && echo hello) || echo notWorking
-(test -e bin && echo hello) || (echo this && echo should_not_print)
+test -e test_literal_tests.sh || echo wrong
+test -d test_literal_tests.sh || echo wrong
+test -f test_literal_tests.sh || echo right_output
+(test -e test_literal_tests.sh ) && echo correct
+(test -e test_literal_tests.sh && echo hello) || echo notWorking
+(test -f test_literal_tests.sh && echo hello) || echo notWorking
+(test -e test_literal_tests.sh && echo hello) || (echo this && echo should_not_print)
 exit
