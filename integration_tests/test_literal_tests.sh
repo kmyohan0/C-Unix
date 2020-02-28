@@ -1,8 +1,3 @@
-#!/bin/bash
+#!/bin/sh
 
-echo testing \"test\" literal integration tests
-
-echo
-.././rshell < "test_literal_test.txt"
-echo
-echo integration \"test\" literal \"test\" done
+.././rshell < test_literal_test
