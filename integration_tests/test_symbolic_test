@@ -1,9 +1,9 @@
-[ -e test_literal_tests.sh ] >> test_symbolic_test_outputs
-[ -d test_literal_tests.sh ] >> test_symbolic_test_outputs
-[ -f test_literal_tests.sh ] >> test_symbolic_test_outputs
-[-e test_literal_tests.sh] >> test_symbolic_test_outputs
-([ -e test_literal_tests.sh ]) >> test_symbolic_test_outputs
-([ -e test_literal_tests.sh ] && echo correct) || echo notWorking  >> test_symbolic_test_outputs
-([ -f test_literal_tests.sh ] && echo correct) || echo notWorking  >> test_symbolic_test_outputs
-([ -e test_literal_tests.sh ] && echo correct) || (echo this && echo should_not_print) >> test_symbolic_test_outputs
+[ -e test_literal_tests.sh ]
+[ -d test_literal_tests.sh ]
+[ -f test_literal_tests.sh ]
+[-e test_literal_tests.sh]
+([ -e test_literal_tests.sh ])
+([ -e test_literal_tests.sh ] && echo correct) || echo notWorking
+([ -f test_literal_tests.sh ] && echo correct) || echo notWorking
+([ -e test_literal_tests.sh ] && echo correct) || (echo this && echo should_not_print)
 exit
