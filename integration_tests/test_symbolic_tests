@@ -1,5 +1,3 @@
-#!/bin/bash
-
 [ -e bin ] >> test_symbolic_test_outputs
 [ -d bin ] >> test_symbolic_test_outputs
 [ -f bin ] >> test_symbolic_test_outputs

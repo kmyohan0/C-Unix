@@ -1,5 +1,3 @@
-#!/bin/bash
-
 test -e bin || echo wrong >> test_symbolic_test_outputs
 test -d bin || echo wrong >> test_symbolic_test_outputs
 test -f bin || echo right_output >> test_symbolic_test_outputs
