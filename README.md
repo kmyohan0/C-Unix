@@ -32,6 +32,8 @@ Token class will represent the order of the commands that the user has inputted.
   * __Or__: The opposite logic of the andToken sub-class, the right process will only be prompted to run if the left process fails, as it only requires one process to be "true". Following the if then statement logic again, if the left child process can't be completed, attempt to run the right child process. 
 
   * __Next__: This is a class that tells the program to move onto the next process that the vector contains. If the vector is at the end of the element, then it can wait for user to input another command or exit the shell program. 
+  
+  * __test__: This is a class that tells the program to check to see if user input's filename is in the bash or not. Not only that, there is a flag condition where user can manually choose if user is looking for a file, directory, or either one of them. Also, there will be a symbolic sign of testToken (the bracket sign) which processes the same action that test does.
 
   * __Quit__: This class will be short; It will take in the user's exit command, and run exit(1) so that the while loop from the main function is exited, and end the program. 
 
