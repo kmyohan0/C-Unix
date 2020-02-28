@@ -1,5 +1,5 @@
 [ -e test_literal_tests.sh ]
-[ -d test_literal_tests.sh ]
+[ -d test_literal_tests.sh ] || echo this_is_correct
 [ -f test_literal_tests.sh ]
 [-e test_literal_tests.sh]
 ([ -e test_literal_tests.sh ])
