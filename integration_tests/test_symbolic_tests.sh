@@ -1,6 +1,6 @@
 echo testing \"test\" symbolic integration tests
 
 echo
-../bin/rshell.out < "test_symbolic_tests"
+../bin/rshell.out < "test_symbolic_tests.txt"
 echo
 echo integration \"test\" symbolic \"test\" done
