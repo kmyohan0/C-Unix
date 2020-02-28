@@ -457,7 +457,7 @@ TEST(parenthesisTest, parenthesisTest_multipleParentheis_Test) {
     testing::internal::CaptureStdout();
     token->parseCommand(parenthesis);
     std::string output = testing::internal::GetCapturedStdout();
-    //from Ubuntu bash, it still returns true so we follow same rule as theirs
+    //from Ubuntu, it causes an syntax error so not sure if this is correct
     EXPECT_EQ(output, "a\n");
 }
 #endif //RSHELL_UNIT_TESTS_HPP
