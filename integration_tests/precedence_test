@@ -1,0 +1,8 @@
+(echo a && echo b) || (echo c && echo d)
+(echo this will output) 
+((echo this || echo b) && echo will output)
+(echo b)
+((echo A) && echo b)
+(echo a || ls) && echo perfect precendence output
+(echo this) && (echo is perfect)
+exit
