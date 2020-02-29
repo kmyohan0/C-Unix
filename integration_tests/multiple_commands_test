@@ -1,5 +1,3 @@
-#!/bin/bash
-
 echo hello; echo world
 ls -a; echo world
 echo "hello"; ls
