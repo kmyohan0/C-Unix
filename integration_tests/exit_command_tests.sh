@@ -1,5 +1,5 @@
+#!/bin/sh
 
-#!/bin/bash
+.././rshell < exit_command_test
 
-echo bye bye && exit >> exit_command_outputs
 
