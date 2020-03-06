@@ -209,6 +209,18 @@ base *parser::postToTree(vector<vector<string>> tokenList) {
             testToken *token = new testToken(temp);
             command_stack.push_back(token);
         }
+        else if (temp.at(0) == "<" || temp.at(0) == "<<") {
+            inputToken* token = new inputToken(temp);
+            if(!command_stack.empty()) {
+                token->setRight(command_stack.back());
+                command_stack.pop_back();
+            }
+            if(!command_stack.empty()) {
+                token->setLeft(command_stack.back());
+                command_stack.pop_back();
+            }
+            command_stack.push_back(token);
+        }
         else {
             Executable* executable = new Executable(temp);
             command_stack.push_back(executable);

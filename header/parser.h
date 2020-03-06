@@ -21,6 +21,7 @@
 #include "../header/orToken.h"
 #include "../header/quitToken.h"
 #include "executeToken.h"
+#include "inputToken.hpp"
 #include "testToken.h"
 using namespace std;
 
