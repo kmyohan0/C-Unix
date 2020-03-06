@@ -9,6 +9,7 @@ void parser::parseCommand(string input) {
     parseString(tokenList);
     vector<vector<string>>postList = toPostFix(tokenList);
     base* root = postToTree(postList);
+
     root->execute();
 }
 
@@ -71,6 +72,9 @@ int parser::priority(string token)
 {
     if (token == "(")
     {
+        return 3;
+    }
+    else if (token == "<" || token == ">" || token == ">>" || token == "|") {
         return 2;
     }
     else if (token == "&&" || token == "||" || token == ";")
@@ -90,7 +94,7 @@ vector<vector<string>> parser::toPostFix(vector<string> &tokenList) {
     vector<vector<string> > postFix;
     for (int i = 0; i < tokenList.size(); i++) {
         string token = tokenList.at(i);
-        if (token == ";" || token == "||" || token == "&&" || token == "(" || token == ")") {
+        if (token == ";" || token == "||" || token == "&&" || token == "(" || token == ")" || token == "<" || token == ">" || token == ">>" || token == "|") {
             if (token == "(") {
                 lists.push(token);
 //                postFix.push_back(string_entry);
@@ -208,9 +212,35 @@ base *parser::postToTree(vector<vector<string>> tokenList) {
         else if (temp.at(0) == "test" || temp.at(0) == "[") {
             testToken *token = new testToken(temp);
             command_stack.push_back(token);
+    }
+        //TODO: take out executable and just implement the filename into the input/outputToken
+        //i.e. if (typeid(command.stack.back()) == typeid(Executable*()))
+        else if (temp.at(0) == ">" || temp.at(0) == ">>") {
+            outputToken* token = new outputToken(temp);
+            if(!command_stack.empty()) {
+                token->setRight(command_stack.back());
+                command_stack.pop_back();
+            }
+            if(!command_stack.empty()) {
+                token->setLeft(command_stack.back());
+                command_stack.pop_back();
+            }
+            command_stack.push_back(token);
         }
-        else if (temp.at(0) == "<" || temp.at(0) == "<<") {
+        else if (temp.at(0) == "<" ) {
             inputToken* token = new inputToken(temp);
+            if(!command_stack.empty()) {
+                token->setRight(command_stack.back());
+                command_stack.pop_back();
+            }
+            if(!command_stack.empty()) {
+                token->setLeft(command_stack.back());
+                command_stack.pop_back();
+            }
+            command_stack.push_back(token);
+        }
+        else if (temp.at(0) == "|") {
+            pipeToken* token = new pipeToken(temp);
             if(!command_stack.empty()) {
                 token->setRight(command_stack.back());
                 command_stack.pop_back();

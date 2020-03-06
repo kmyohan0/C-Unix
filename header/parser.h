@@ -22,6 +22,8 @@
 #include "../header/quitToken.h"
 #include "executeToken.h"
 #include "inputToken.hpp"
+#include "outputToken.hpp"
+#include "pipeToken.hpp"
 #include "testToken.h"
 using namespace std;
 
