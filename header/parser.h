@@ -14,6 +14,7 @@
 #include <iterator>
 #include <sstream>
 #include <stack>
+#include <typeinfo>
 #include <boost/tokenizer.hpp>
 #include "../header/base.h"
 #include "../header/andToken.h"
