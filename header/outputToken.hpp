@@ -20,11 +20,13 @@ using namespace std;
 class outputToken : public base{
 
 private:
-    string command;
+    string filePath;
+    //To determine whether we use append or rewrite, we must have a flag.
+    string flag;
     base* left;
     base* right;
 public:
-    outputToken(vector<string> command_token);
+    outputToken(vector<string> filePath);
     void setLeft(base* left);
     void setRight(base* right);
     bool execute();

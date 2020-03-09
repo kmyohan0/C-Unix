@@ -1,9 +1,9 @@
 
-#ifndef __EXECUTABLE_H__ 
+#ifndef __EXECUTABLE_H__
 #define __EXECUTABLE_H__
 
 #include "../header/base.h"
-#include <string> 
+#include <string>
 #include <iostream>
 #include <vector>
 #include <sys/types.h>
@@ -16,11 +16,12 @@ using namespace std;
 
 class Executable : public base{
 
-        private:
-                vector<char *> token_command;
-        public:
-                Executable(vector<string> command_token);
-                bool execute();
+private:
+    vector<char *> token_command;
+public:
+    Executable(vector<string> command_token);
+    bool execute();
+    string getFileName();
 };
 
 

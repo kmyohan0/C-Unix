@@ -46,3 +46,9 @@ bool Executable::execute()
 	}
 	return false;	 
 }
+
+string Executable::getFileName() {
+    //when using I/O redirection, fileName will be at the first element of the command_stack
+    // (in fact, it will only have one element), so  we return token_command.at(0);
+    return token_command.at(0);
+}

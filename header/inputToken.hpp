@@ -13,17 +13,18 @@
 #include  <stdio.h>
 #include  <sys/wait.h>
 #include <string.h>
+#include <sys/fcntl.h>
 
 using namespace std;
 
 class inputToken : public base{
 
 private:
-    string command;
+    string filePath;
     base* left;
     base* right;
 public:
-    inputToken(vector<string> command_token);
+    inputToken(vector<string> filePath);
     void setLeft(base* left);
     void setRight(base* right);
     bool execute();

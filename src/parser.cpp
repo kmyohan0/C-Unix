@@ -216,10 +216,21 @@ base *parser::postToTree(vector<vector<string>> tokenList) {
         //TODO: take out executable and just implement the filename into the input/outputToken
         //i.e. if (typeid(command.stack.back()) == typeid(Executable*()))
         else if (temp.at(0) == ">" || temp.at(0) == ">>") {
-            outputToken* token = new outputToken(temp);
-            if(!command_stack.empty()) {
-                token->setRight(command_stack.back());
+            outputToken* token;
+            //i.e. cat < testFilePath will give us (cat | testFilePath | <) for postFix. that means, our command_stack
+            //will have testFilePath for last element (command_stack.back()), thus check if it is executable, then copy
+            // filePath.
+            if (typeid(command_stack.back()) == typeid(Executable*)) {
+                Executable* temp_exec = dynamic_cast<Executable* >(command_stack.back());
+                vector<string> inputs = {temp_exec->getFileName()};
+                inputs.push_back(temp.at(0));
+                token = new outputToken(inputs);
                 command_stack.pop_back();
+            }
+                //userInput will be something like: && < filePath
+            else {
+                cout << "Invalid syntax." << endl;
+                exit(1);
             }
             if(!command_stack.empty()) {
                 token->setLeft(command_stack.back());
@@ -228,10 +239,20 @@ base *parser::postToTree(vector<vector<string>> tokenList) {
             command_stack.push_back(token);
         }
         else if (temp.at(0) == "<" ) {
-            inputToken* token = new inputToken(temp);
-            if(!command_stack.empty()) {
-                token->setRight(command_stack.back());
+            inputToken* token;
+            //i.e. cat < testFilePath will give us (cat | testFilePath | <) for postFix. that means, our command_stack
+            //will have testFilePath for last element (command_stack.back()), thus check if it is executable, then copy
+            // filePath.
+            if (typeid(*command_stack.back()).name() == typeid(Executable).name()) {
+                Executable* temp_exec = dynamic_cast<Executable* >(command_stack.back());
+                vector<string> inputs = {temp_exec->getFileName()};
+                token = new inputToken(inputs);
                 command_stack.pop_back();
+            }
+            //userInput will be something like: && < filePath
+            else {
+                cout << "Invalid syntax." << endl;
+                exit(1);
             }
             if(!command_stack.empty()) {
                 token->setLeft(command_stack.back());
@@ -239,6 +260,7 @@ base *parser::postToTree(vector<vector<string>> tokenList) {
             }
             command_stack.push_back(token);
         }
+        //TODO: work on pipeToken (still having trouble understanding how pipe works)
         else if (temp.at(0) == "|") {
             pipeToken* token = new pipeToken(temp);
             if(!command_stack.empty()) {
