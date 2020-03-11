@@ -14,6 +14,7 @@
 #include  <stdio.h>
 #include  <sys/wait.h>
 #include <string.h>
+#include <sys/fcntl.h>
 
 using namespace std;
 

@@ -220,8 +220,8 @@ base *parser::postToTree(vector<vector<string>> tokenList) {
             //i.e. cat < testFilePath will give us (cat | testFilePath | <) for postFix. that means, our command_stack
             //will have testFilePath for last element (command_stack.back()), thus check if it is executable, then copy
             // filePath.
-            if (typeid(command_stack.back()) == typeid(Executable*)) {
-                Executable* temp_exec = dynamic_cast<Executable* >(command_stack.back());
+            if (typeid(*command_stack.back()).name() == typeid(Executable).name()) {
+                Executable* temp_exec = static_cast<Executable* >(command_stack.back());
                 vector<string> inputs = {temp_exec->getFileName()};
                 inputs.push_back(temp.at(0));
                 token = new outputToken(inputs);
@@ -244,7 +244,7 @@ base *parser::postToTree(vector<vector<string>> tokenList) {
             //will have testFilePath for last element (command_stack.back()), thus check if it is executable, then copy
             // filePath.
             if (typeid(*command_stack.back()).name() == typeid(Executable).name()) {
-                Executable* temp_exec = dynamic_cast<Executable* >(command_stack.back());
+                Executable* temp_exec = static_cast<Executable* >(command_stack.back());
                 vector<string> inputs = {temp_exec->getFileName()};
                 token = new inputToken(inputs);
                 command_stack.pop_back();
